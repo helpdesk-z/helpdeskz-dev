@@ -1,0 +1,116 @@
+html{
+    height: 100%;
+}
+body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+    color: #4d4d4d;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+}
+.form-control{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+}
+#footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #EFEFEF;
+    color: #88837F;
+    font-size: 13px;
+}
+#footer a{
+    color: #88837F;
+}
+#footer a:hover{
+    color: #999;
+}
+a:hover{
+    text-decoration: none;
+}
+.static_link, .static_link:hover{
+    color: #0077FF;
+}
+.inactive_link, .inactive_link:hover{
+    color: #6BAFFF;
+}
+/* Navbar */
+.navbar{
+    font-weight: 400;
+    -webkit-box-shadow: -1px 2px 9px 0px rgba(221,221,221,1);
+    -moz-box-shadow: -1px 2px 9px 0px rgba(221,221,221,1);
+    box-shadow: -1px 2px 9px 0px rgba(221,221,221,1);
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: #03363D;
+}
+.navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+    color: #2276D2;
+    text-decoration: underline;
+}
+/* Heading */
+.heading{
+    font-weight: 200;
+    font-size: 42px;
+    line-height: 48px;
+    padding-top: 10px;
+}
+.sub_heading{
+    font-weight: 200;
+    font-size: 36px;
+    margin-top: 5px;
+    line-height: 35px;
+}
+/* Knowledge base */
+.slider-block{
+    background: url("../images/slider.jpg") no-repeat;
+    background-position: top;
+    background-size: cover;
+    color: #1b1e21;
+}
+.slider-block .slider-content{
+    text-align: center;
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+.slider-block .slider-content h1{
+    font-weight: 300;
+    margin-bottom: 50px;
+}
+a.kb_category{
+    font-weight: 400;
+    font-size: 20px;
+    color: #4C4C4C;
+}
+a.kb_category:hover{
+    color: #0077FF;
+}
+.kb_total_articles{
+    color: #B3B3B3;
+}
+.kb_article_icon{
+    color: #C7C7C7;
+}
+.kb_article_icon_lg{
+    color: #E5E5E5;
+    font-size: 40px;
+}
+
+.article_description{
+    color: #999;
+    font-size: 14px;
+}
+
+.pointer{
+    cursor: pointer;
+}
+.bg-staff{
+    background-color: #FFF5E5;
+}

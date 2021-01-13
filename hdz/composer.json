@@ -1,0 +1,6 @@
+{
+  "name": "EvolutionScript",
+  "require": {
+    "google/recaptcha": "~1.2"
+  }
+}
