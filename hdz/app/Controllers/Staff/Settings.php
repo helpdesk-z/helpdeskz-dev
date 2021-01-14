@@ -366,7 +366,7 @@ class Settings extends BaseController
                 $validation->setRule('smtp_port',lang('Admin.settings.smtpPort'),'required|is_natural_no_zero');
                 $validation->setRule('smtp_encryption',lang('Admin.settings.smtpEncryption'),'in_list[ssl,tls]');
             }
-            if($this->request->getPost('incoming_type') != '')
+            if($this->request->getPost('incoming_type') != '' && $this->request->getPost('incoming_type') != 'pipe')
             {
                 $validation->setRule('incoming_type','Incoming type','in_list[pop,imap]',[
                     'in_list' => lang('Admin.error.selectIncoming')
@@ -428,7 +428,7 @@ class Settings extends BaseController
                 $validation->setRule('smtp_encryption',lang('Admin.settings.smtpEncryption'),'in_list[ssl,tls]');
             }
 
-            if($this->request->getPost('incoming_type') != '')
+            if($this->request->getPost('incoming_type') != '' && $this->request->getPost('incoming_type') != 'pipe')
             {
                 $validation->setRule('incoming_type','Incoming type','in_list[pop,imap]',[
                     'in_list' => lang('Admin.error.selectIncoming')

@@ -123,7 +123,7 @@ if(isset($success_msg)){
                         <select name="incoming_type" class="form-group custom-select" id="incoming_type">
                             <?php
                             $default = set_value('incoming_type', (isset($email) ? $email->incoming_type : ''));
-                            foreach (['' => lang('Admin.form.none'),'pop' => 'POP','imap' => 'IMAP'] as $k => $v){
+                            foreach (['' => lang('Admin.form.none'),'pipe'=>'Pipe','pop' => 'POP','imap' => 'IMAP'] as $k => $v){
                                 if($default == $k){
                                     echo '<option value="'.$k.'" selected>'.$v.'</option>';
                                 }else{

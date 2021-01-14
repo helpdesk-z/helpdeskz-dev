@@ -293,7 +293,7 @@ function outgoing_type() {
 }
 function incoming_type() {
     var incoming_type = $('#incoming_type').val();
-    if(incoming_type !== ''){
+    if(incoming_type === 'pop' || incoming_type === 'imap'){
         $('#incoming_details').show();
     }else{
         $('#incoming_details').hide();
