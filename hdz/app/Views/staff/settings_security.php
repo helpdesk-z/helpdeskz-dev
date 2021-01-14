@@ -46,11 +46,11 @@ if(isset($success_msg)){
             <div id="recaptcha_details">
                 <div class="form-group">
                     <label><?php echo lang('Admin.settings.siteKey');?></label>
-                    <input type="text" name="recaptcha_sitekey" class="form-control" value="<?php echo set_value('recaptcha_sitekey', site_config('recaptcha_sitekey'));?>">
+                    <input type="text" name="recaptcha_sitekey" class="form-control" value="<?php echo set_value('recaptcha_sitekey', (defined('HDZDEMO') ? '[Hidden in demo]' : site_config('recaptcha_sitekey')));?>">
                 </div>
                 <div class="form-group">
                     <label><?php echo lang('Admin.settings.privateKey');?></label>
-                    <input type="text" name="recaptcha_privatekey" class="form-control" value="<?php echo set_value('recaptcha_privatekey', site_config('recaptcha_privatekey'));?>">
+                    <input type="text" name="recaptcha_privatekey" class="form-control" value="<?php echo set_value('recaptcha_privatekey', (defined('HDZDEMO') ? '[Hidden in demo]' : site_config('recaptcha_privatekey')));?>">
                 </div>
             </div>
 

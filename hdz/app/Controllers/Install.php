@@ -21,7 +21,7 @@ class Install extends BaseController
     {
         $this->installPath = HDZ_PATH.'install'.DIRECTORY_SEPARATOR;
         if(!is_dir($this->installPath)){
-            return redirect()->route('home');
+            die();
         }
     }
     public function home()
