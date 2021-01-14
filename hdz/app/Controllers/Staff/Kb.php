@@ -29,9 +29,13 @@ class Kb extends BaseController
             return redirect()->to(current_url());
         }
         if($this->request->getPost('do') == 'remove'){
-            $kb->removeCategory($this->request->getPost('category_id'));
-            $this->session->setFlashdata('form_success',lang('Admin.kb.categoryRemoved'));
-            return redirect()->to(current_url());
+            if (defined('HDZDEMO')) {
+                $error_msg = 'This is not possible in demo version.';
+            }else{
+                $kb->removeCategory($this->request->getPost('category_id'));
+                $this->session->setFlashdata('form_success',lang('Admin.kb.categoryRemoved'));
+                return redirect()->to(current_url());
+            }
         }
         return view('staff/kb_categories',[
             'error_msg' => isset($error_msg) ? $error_msg : null,
@@ -63,8 +67,10 @@ class Kb extends BaseController
                     'in_list' => lang('Admin.error.selectCategoryType'),
                 ]
             ]);
-            if($validation->withRequest($this->request)->run() == false){
+            if($validation->withRequest($this->request)->run() == false) {
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')) {
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $kb->insertCategory($this->request->getPost('name'), $this->request->getPost('parent'), $this->request->getPost('public'));
                 $this->session->setFlashdata('form_success', lang('Admin.kb.categoryCreated'));
@@ -107,8 +113,10 @@ class Kb extends BaseController
                     'in_list' => lang('Admin.error.selectCategoryType'),
                 ]
             ]);
-            if($validation->withRequest($this->request)->run() == false){
+            if($validation->withRequest($this->request)->run() == false) {
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')) {
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $kb->updateCategory([
                     'name' => esc($this->request->getPost('name')),
@@ -135,9 +143,13 @@ class Kb extends BaseController
     {
         $kb = Services::kb();
         if($this->request->getPost('do') == 'remove'){
-            $kb->removeArticle($this->request->getPost('article_id'));
-            $this->session->setFlashdata('form_success','Article has been removed.');
-            return redirect()->to(current_url());
+            if (defined('HDZDEMO')) {
+                $error_msg = 'This is not possible in demo version.';
+            }else{
+                $kb->removeArticle($this->request->getPost('article_id'));
+                $this->session->setFlashdata('form_success','Article has been removed.');
+                return redirect()->to(current_url());
+            }
         }
         $pagination = $kb->articlesPagination($category);
         return view('staff/kb_articles',[
@@ -177,8 +189,10 @@ class Kb extends BaseController
                     'required' => lang('Admin.error.enterContent')
                 ]
             ]);
-            if($validation->withRequest($this->request)->run() == false){
+            if($validation->withRequest($this->request)->run() == false) {
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')) {
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $kb->addArticle($this->request->getPost('title'), $this->request->getPost('content'),
                     $this->request->getPost('category_id'), $this->request->getPost('public'));
@@ -225,8 +239,10 @@ class Kb extends BaseController
                 ]
             ]);
 
-            if($validation->withRequest($this->request)->run() == false){
+            if($validation->withRequest($this->request)->run() == false) {
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')) {
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $kb->updateArticle($article->id, $this->request->getPost('title'), $this->request->getPost('content'),
                     $this->request->getPost('category_id'), $this->request->getPost('public'));

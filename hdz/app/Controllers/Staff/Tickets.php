@@ -21,7 +21,7 @@ class Tickets extends BaseController
         $tickets = new \App\Libraries\Tickets();
 
         if($this->request->getPost('action')){
-            if(!is_array($this->request->getPost('ticket_id'))){
+            if(!is_array($this->request->getPost('ticket_id'))) {
                 $error_msg = lang('Admin.error.noItemsSelected');
             }else{
                 foreach ($this->request->getPost('ticket_id') as $ticket_id){
@@ -179,7 +179,9 @@ class Tickets extends BaseController
                     $attachments->addTicketFiles($ticket->id, $message_id, $files);
                 }
                 $tickets->updateTicketReply($ticket->id, $ticket->status, true);
-                $tickets->replyTicketNotification($ticket, $message, (isset($files) ? $files : null));
+                if(!defined('HDZDEMO')){
+                    $tickets->replyTicketNotification($ticket, $message, (isset($files) ? $files : null));
+                }
                 $this->session->setFlashdata('ticket_update', lang('Admin.tickets.messageSent'));
                 return redirect()->to(current_url());
             }
@@ -190,6 +192,9 @@ class Tickets extends BaseController
         }
 
         $messages = $tickets->getMessages($ticket->id);
+        if(defined('HDZDEMO')){
+            $ticket->email = '[Hidden in demo]';
+        }
         return view('staff/ticket_view',[
             'error_msg' => isset($error_msg) ? $error_msg : null,
             'success_msg' => isset($success_msg) ? $success_msg : null,
@@ -254,8 +259,10 @@ class Tickets extends BaseController
                 ]);
             }
 
-            if($validation->withRequest($this->request)->run() == false){
+            if($validation->withRequest($this->request)->run() == false) {
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $attachments = Services::attachments();
                 if($this->settings->config('ticket_attachment')){
@@ -302,8 +309,10 @@ class Tickets extends BaseController
         if($this->request->getPost('do') == 'remove'){
             if(!$canned = $tickets->getCannedResponse($this->request->getPost('msgID'))){
                 $error_msg = lang('Admin.error.invalidCannedResponse');
-            }elseif(!$this->staff->getData('admin') && $canned->staff_id != $this->staff->getData('id')){
+            }elseif(!$this->staff->getData('admin') && $canned->staff_id != $this->staff->getData('id')) {
                 $error_msg = lang('Admin.error.invalidCannedResponse');
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $tickets->deleteCanned($canned->id);
                 $this->session->setFlashdata('canned_update','Canned response has been removed.');
@@ -314,6 +323,8 @@ class Tickets extends BaseController
         if($this->request->getGet('action') && is_numeric($this->request->getGet('msgID'))){
             if(!$canned = $tickets->getCannedResponse($this->request->getGet('msgID'))){
                 $error_msg = lang('Admin.error.invalidCannedResponse');
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $cannedModel = new CannedModel();
                 switch ($this->request->getGet('action')){
@@ -374,6 +385,8 @@ class Tickets extends BaseController
             ]);
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $tickets->updateCanned([
                     'title' => esc($this->request->getPost('title')),
@@ -413,6 +426,8 @@ class Tickets extends BaseController
             ]);
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $tickets = Services::tickets();
                 $tickets->insertCanned($this->request->getPost('title'), $this->request->getPost('message'));

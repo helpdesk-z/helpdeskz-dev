@@ -41,6 +41,8 @@ class Tools extends BaseController
                 $validation->setRule('field_id', 'field_id', 'required|is_natural_no_zero|is_not_unique[custom_fields.id]');
                 if($validation->withRequest($this->request)->run() == false){
                     $error_msg = lang('Admin.tools.invalidCustomField');
+                }elseif (defined('HDZDEMO')){
+                    $error_msg = 'This is not possible in demo version.';
                 }else{
                     $tickets->deleteCustomField($this->request->getPost('field_id'));
                     $this->session->setFlashdata('form_success',lang('Admin.tools.customFieldRemoved'));
@@ -81,6 +83,8 @@ class Tools extends BaseController
             }
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }
             if($this->request->getPost('department_list') == '1'){
                 if(!is_array($this->request->getPost('departments'))){
@@ -141,6 +145,8 @@ class Tools extends BaseController
             }
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }
             if($this->request->getPost('department_list') == '1'){
                 if(!is_array($this->request->getPost('departments'))){

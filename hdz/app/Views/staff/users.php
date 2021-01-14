@@ -60,7 +60,7 @@ echo form_open('',['id'=>'manageForm'],['do'=>'remove']).
                                 <?php echo $user->fullname;?><br>
                             </td>
                             <td>
-                                <?php echo $user->email;?>
+                                <?php echo (defined('HDZDEMO') ? '[Hidden in demo]' : $user->email);?>
                             </td>
                             <td><?php echo time_ago($user->registration);?></td>
                             <td>

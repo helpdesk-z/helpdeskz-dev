@@ -50,6 +50,10 @@ class Misc extends BaseController
             if(!$file = $this->request->getFile('file')){
                 return $this->response->setStatusCode(500);
             }
+            if (defined('HDZDEMO')) {
+                return 'This is not possible is demo version.';
+            }
+
             $csrf_name = csrf_token();
             $csrf_value = csrf_hash();
             $result = ['token_name' => $csrf_name, 'token_value' => $csrf_value];

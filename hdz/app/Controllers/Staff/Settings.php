@@ -21,88 +21,98 @@ class Settings extends BaseController
             return redirect()->route('staff_dashboard');
         }
 
-        if($this->request->getPost('action') == 'deleteLogo'){
-            if($this->settings->config('logo') != ''){
-                @unlink(FCPATH.'upload/'.$this->settings->config('logo'));
-            }
-            $this->settings->save('logo','');
-            $this->session->setFlashdata('logo_success',lang('Admin.settings.logoRestored'));
-            return redirect()->to(current_url());
-        }elseif ($this->request->getPost('action') == 'uploadLogo') {
-            $validation = Services::validation();
-            $validation->setRule('logo', 'logo', 'uploaded[logo]|is_image[logo]|max_size[logo,' . max_file_size() . ']', [
-                'uploaded' => lang('Admin.error.selectLogo'),
-                'is_image' => lang('Admin.error.selectLogo'),
-                'max_size' => lang_replace('Admin.error.logoSize', ['%size%' => number_to_size(max_file_size() * 1024, 2)])
-            ]);
-            if ($validation->withRequest($this->request)->run() == false) {
-                $logo_error = $validation->listErrors();
-            } elseif (!$file = $this->request->getFile('logo')) {
-                $logo_error = lang('Admin.error.uploadingLogo');
-            } elseif ($file->hasMoved()) {
-                $logo_error = lang('Admin.error.uploadingLogo');
-            } else {
-                $newName = $file->getRandomName();
-                $imgPath = FCPATH . 'upload';
-                $file->move($imgPath, $newName);
-                $this->settings->save('logo', $newName);
-                $this->session->setFlashdata('logo_success', lang('Admin.settings.logoChanged'));
-                return redirect()->to(current_url());
-            }
-        }elseif ($this->request->getPost('action') == 'update_maintenance'){
-            $validation = Services::validation();
-            $validation->setRule('maintenance',lang('Admin.form.status'), 'required|in_list[0,1]');
-            if($validation->withRequest($this->request)->run() == false){
-                $maintenance_error = $validation->listErrors();
+        if($this->request->getMethod() == 'post'){
+            if (defined('HDZDEMO')) {
+                $error_msg = 'This is not possible in demo version.';
             }else{
-                $this->settings->save([
-                    'maintenance' => $this->request->getPost('maintenance'),
-                    'maintenance_message' => $this->request->getPost('maintenance_message'),
-                ]);
-                $this->session->setFlashdata('maintenance_success',lang('Admin.settings.updated'));
-                return redirect()->to(current_url());
-            }
-        }elseif($this->request->getPost('action') == 'updateConfig'){
-            $validation = Services::validation();
-            $validation->setRules([
-                'site_name' => 'required',
-                'windows_title' => 'required',
-                'page_size' => 'required|is_natural_no_zero',
-                'date_format' => 'required',
-                'timezone' => 'in_list['.implode(',', timezone_identifiers_list()).']'
-            ],[
-                'site_name' => [
-                    'required' => lang('Admin.error.enterSiteName')
-                ],
-                'windows_title' => [
-                    'required' => lang('Admin.error.enterWindowTitle')
-                ],
-                'page_size' => [
-                    'required' => lang('Admin.error.enterPageSize'),
-                    'is_natural_no_zero' => lang('Admin.error.enterPageSize'),
-                ],
-                'date_format' => [
-                    'required' => lang('Admin.error.enterDateFormat')
-                ],
-                'timezone' => [
-                    'in_list' => lang('Admin.error.selectTimezone')
-                ]
-            ]);
+                if($this->request->getPost('action') == 'deleteLogo'){
+                    if($this->settings->config('logo') != ''){
+                        @unlink(FCPATH.'upload/'.$this->settings->config('logo'));
+                    }
+                    $this->settings->save('logo','');
+                    $this->session->setFlashdata('logo_success',lang('Admin.settings.logoRestored'));
+                    return redirect()->to(current_url());
+                }
+                elseif ($this->request->getPost('action') == 'uploadLogo') {
+                    $validation = Services::validation();
+                    $validation->setRule('logo', 'logo', 'uploaded[logo]|is_image[logo]|max_size[logo,' . max_file_size() . ']', [
+                        'uploaded' => lang('Admin.error.selectLogo'),
+                        'is_image' => lang('Admin.error.selectLogo'),
+                        'max_size' => lang_replace('Admin.error.logoSize', ['%size%' => number_to_size(max_file_size() * 1024, 2)])
+                    ]);
+                    if ($validation->withRequest($this->request)->run() == false) {
+                        $logo_error = $validation->listErrors();
+                    } elseif (!$file = $this->request->getFile('logo')) {
+                        $logo_error = lang('Admin.error.uploadingLogo');
+                    } elseif ($file->hasMoved()) {
+                        $logo_error = lang('Admin.error.uploadingLogo');
+                    } else {
+                        $newName = $file->getRandomName();
+                        $imgPath = FCPATH . 'upload';
+                        $file->move($imgPath, $newName);
+                        $this->settings->save('logo', $newName);
+                        $this->session->setFlashdata('logo_success', lang('Admin.settings.logoChanged'));
+                        return redirect()->to(current_url());
+                    }
+                }
+                elseif ($this->request->getPost('action') == 'update_maintenance'){
+                    $validation = Services::validation();
+                    $validation->setRule('maintenance',lang('Admin.form.status'), 'required|in_list[0,1]');
+                    if($validation->withRequest($this->request)->run() == false){
+                        $maintenance_error = $validation->listErrors();
+                    }else{
+                        $this->settings->save([
+                            'maintenance' => $this->request->getPost('maintenance'),
+                            'maintenance_message' => $this->request->getPost('maintenance_message'),
+                        ]);
+                        $this->session->setFlashdata('maintenance_success',lang('Admin.settings.updated'));
+                        return redirect()->to(current_url());
+                    }
+                }
+                elseif($this->request->getPost('action') == 'updateConfig'){
+                    $validation = Services::validation();
+                    $validation->setRules([
+                        'site_name' => 'required',
+                        'windows_title' => 'required',
+                        'page_size' => 'required|is_natural_no_zero',
+                        'date_format' => 'required',
+                        'timezone' => 'in_list['.implode(',', timezone_identifiers_list()).']'
+                    ],[
+                        'site_name' => [
+                            'required' => lang('Admin.error.enterSiteName')
+                        ],
+                        'windows_title' => [
+                            'required' => lang('Admin.error.enterWindowTitle')
+                        ],
+                        'page_size' => [
+                            'required' => lang('Admin.error.enterPageSize'),
+                            'is_natural_no_zero' => lang('Admin.error.enterPageSize'),
+                        ],
+                        'date_format' => [
+                            'required' => lang('Admin.error.enterDateFormat')
+                        ],
+                        'timezone' => [
+                            'in_list' => lang('Admin.error.selectTimezone')
+                        ]
+                    ]);
 
-            if($validation->withRequest($this->request)->run() == false){
-                $error_msg = $validation->listErrors();
-            }else{
-                $this->settings->save([
-                    'site_name' => esc($this->request->getPost('site_name')),
-                    'windows_title' => esc($this->request->getPost('windows_title')),
-                    'page_size' => $this->request->getPost('page_size'),
-                    'date_format' => esc($this->request->getPost('date_format')),
-                    'timezone' => $this->request->getPost('timezone'),
-                ]);
-                $this->session->setFlashdata('form_success',lang('Admin.settings.updated'));
-                return redirect()->to(current_url());
+                    if($validation->withRequest($this->request)->run() == false){
+                        $error_msg = $validation->listErrors();
+                    }else{
+                        $this->settings->save([
+                            'site_name' => esc($this->request->getPost('site_name')),
+                            'windows_title' => esc($this->request->getPost('windows_title')),
+                            'page_size' => $this->request->getPost('page_size'),
+                            'date_format' => esc($this->request->getPost('date_format')),
+                            'timezone' => $this->request->getPost('timezone'),
+                        ]);
+                        $this->session->setFlashdata('form_success',lang('Admin.settings.updated'));
+                        return redirect()->to(current_url());
+                    }
+                }
             }
         }
+
 
         return view('staff/settings_general',[
             'logo_error' => isset($logo_error) ? $logo_error : null,
@@ -145,6 +155,8 @@ class Settings extends BaseController
 
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $this->settings->save([
                     'recaptcha' => $this->request->getPost('recaptcha'),
@@ -188,6 +200,8 @@ class Settings extends BaseController
 
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
 
                 $file_types = explode(',', $this->request->getPost('ticket_file_type'));
@@ -240,6 +254,8 @@ class Settings extends BaseController
 
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
 
                 $this->settings->save([
@@ -266,14 +282,18 @@ class Settings extends BaseController
 
         $emailsLib = new Emails();
         if($this->request->getPost('action') == 'change_status'){
-            if($template = $emailsLib->getTemplate($this->request->getPost('email_id'))){
-                if($template->status != 2){
-                    $emailsLib->updateTemplate([
-                        'status' => ($template->status == 1 ? 0 : 1)
-                    ], $template->id);
+            if (defined('HDZDEMO')) {
+                $error_msg = 'This is not possible in demo version.';
+            }else{
+                if($template = $emailsLib->getTemplate($this->request->getPost('email_id'))){
+                    if($template->status != 2){
+                        $emailsLib->updateTemplate([
+                            'status' => ($template->status == 1 ? 0 : 1)
+                        ], $template->id);
+                    }
                 }
+                return redirect()->to(current_url());
             }
-            return redirect()->to(current_url());
         }
         return view('staff/email_template',[
             'error_msg' => isset($error_msg) ? $error_msg : null,
@@ -297,6 +317,8 @@ class Settings extends BaseController
             $validation->setRule('message',lang('Admin.form.message'),'required');
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $emailLib->updateTemplate([
                     'subject' => $this->request->getPost('subject'),
@@ -321,16 +343,21 @@ class Settings extends BaseController
         }
 
         $emailsLib = new Emails();
-        if($this->request->getPost('action') == 'set_default')
-        {
-            $emailsLib->set_default($this->request->getPost('email_id'));
-            $this->session->setFlashdata('form_success',lang('Admin.settings.defaultEmailChanged'));
-            return redirect()->to(current_url());
-        }elseif ($this->request->getPost('action') == 'remove'){
-            $emailsLib->remove_email($this->request->getPost('email_id'));
-            $this->session->setFlashdata('form_success',lang('Admin.settings.emailRemoved'));
-            return redirect()->to(current_url());
+        if($this->request->getMethod() == 'post'){
+            $error_msg = 'This is not possible in demo version.';
+        }else{
+            if($this->request->getPost('action') == 'set_default')
+            {
+                $emailsLib->set_default($this->request->getPost('email_id'));
+                $this->session->setFlashdata('form_success',lang('Admin.settings.defaultEmailChanged'));
+                return redirect()->to(current_url());
+            }elseif ($this->request->getPost('action') == 'remove'){
+                $emailsLib->remove_email($this->request->getPost('email_id'));
+                $this->session->setFlashdata('form_success',lang('Admin.settings.emailRemoved'));
+                return redirect()->to(current_url());
+            }
         }
+
         return view('staff/email_addresses',[
             'error_msg' => isset($error_msg) ? $error_msg : null,
             'success_msg' => $this->session->has('form_success') ? $this->session->getFlashdata('form_success') : null,
@@ -378,6 +405,8 @@ class Settings extends BaseController
             }
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }elseif($emailsLib->departmentInUse($this->request->getPost('department_id'))){
                 $error_msg = lang('Admin.error.emailTakenDepartment');
             }else{
@@ -440,6 +469,8 @@ class Settings extends BaseController
             }
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }elseif($this->request->getPost('department_id') != $email->department_id  && $emailsLib->departmentInUse($this->request->getPost('department_id'))){
                 $error_msg = lang('Admin.error.emailTakenDepartment');
             }else{

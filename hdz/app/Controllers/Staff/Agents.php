@@ -21,9 +21,13 @@ class Agents extends BaseController
         }
 
         if($this->request->getPost('do') == 'remove'){
-            $this->staff->removeAgent($this->request->getPost('agent_id'));
-            $this->session->setFlashdata('form_success',lang('Admin.agents.agentRemoved'));
-            return redirect()->to(current_url());
+            if (defined('HDZDEMO')) {
+                $error_msg = 'This is not possible in demo version.';
+            }else{
+                $this->staff->removeAgent($this->request->getPost('agent_id'));
+                $this->session->setFlashdata('form_success',lang('Admin.agents.agentRemoved'));
+                return redirect()->to(current_url());
+            }
         }
         return view('staff/agents',[
             'error_msg' => isset($error_msg) ? $error_msg : null,
@@ -79,6 +83,8 @@ class Agents extends BaseController
 
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $this->staff->updateAgent($agent->id, $this->request->getPost('fullname'),
                     $this->request->getPost('username'),
@@ -143,6 +149,8 @@ class Agents extends BaseController
 
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $this->staff->newAgent($this->request->getPost('fullname'), $this->request->getPost('username'),
                     $this->request->getPost('email'), $this->request->getPost('password'),

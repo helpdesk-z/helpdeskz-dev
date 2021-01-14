@@ -19,7 +19,6 @@ class Departments extends BaseController
         if($this->staff->getData('admin') != 1){
             return redirect()->route('staff_dashboard');
         }
-
         $departments = Services::departments();
         if($this->request->getMethod() == 'get'){
             if(is_numeric($this->request->getGet('department_id'))){
@@ -31,7 +30,9 @@ class Departments extends BaseController
                 return redirect()->to(current_url());
             }
         }elseif ($this->request->getMethod() == 'post'){
-            if($this->request->getPost('do') == 'remove'){
+            if (defined('HDZDEMO')) {
+                $error_msg = 'This is not possible in demo version.';
+            }elseif($this->request->getPost('do') == 'remove'){
                 $departments->remove($this->request->getPost('department_id'));
                 $this->session->setFlashdata('form_success',lang('Admin.tickets.departmentRemoved'));
                 return redirect()->to(current_url());
@@ -73,6 +74,8 @@ class Departments extends BaseController
 
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $departmentModel = new \App\Models\Departments();
                 if($this->request->getPost('position') == 'start'){
@@ -134,6 +137,8 @@ class Departments extends BaseController
             ]);
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $departments->create($this->request->getPost('name'), $this->request->getPost('private'), $this->request->getPost('position'));
                 $this->session->setFlashdata('form_success',lang('Admin.tickets.departmentCreated'));

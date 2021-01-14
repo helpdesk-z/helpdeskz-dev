@@ -69,95 +69,101 @@ class Auth extends BaseController
 
     public function profile()
     {
-        if($this->request->getPost('do') == 'delete_avatar')
-        {
-            $this->staff->update(['avatar' => ''], $this->staff->getData('id'));
-            if($this->staff->getData('avatar') != ''){
-                $avatarFile = Helpdesk::UPLOAD_PATH.DIRECTORY_SEPARATOR.$this->staff->getData('avatar');
-                if(file_exists($avatarFile)){
-                    @unlink($avatarFile);
-                }
-            }
-            $this->session->setFlashdata('form_success', lang('Admin.account.avatarRemoved'));
-            return redirect()->to(current_url());
-        }
-        elseif($this->request->getPost('do') == 'update_password')
-        {
-            $validation = Services::validation();
-            $validation->setRules([
-                'current_password' => 'required|min_length[6]',
-                'new_password' => 'required|min_length[6]',
-                'new_password2' => 'matches[new_password]'
-            ],[
-                'current_password' => [
-                    'required' => lang('Admin.error.wrongExistingPassword'),
-                    'min_length' => lang('Admin.error.wrongExistingPassword')
-                ],
-                'new_password' => [
-                    'required' => lang('Admin.form.enterNewPassword'),
-                    'min_length' => lang('Admin.error.passwordTooShort')
-                ],
-                'new_password2' => [
-                    'matches' => lang('Admin.error.passwordsNotMatches')
-                ]
-            ]);
-
-            if($validation->withRequest($this->request)->run() == false){
-                $error_msg = $validation->listErrors();
-            }elseif(!password_verify($this->request->getPost('current_password'), $this->staff->getData('password'))){
-                $error_msg = lang('Admin.error.wrongExistingPassword');
+        if($this->request->getMethod() == 'post'){
+            if (defined('HDZDEMO')) {
+                $error_msg = 'This is not possible in demo version.';
             }else{
-                $this->staff->updatePassword($this->request->getPost('new_password'));
-                $this->session->setFlashdata('form_success', lang('Admin.account.passwordUpdated'));
-                return redirect()->withCookies()->to(current_url());
-            }
-        }
-        elseif ($this->request->getPost('do') == 'update_profile'){
-            $validation = Services::validation();
-            $validation->setRule('avatar', lang('Admin.form.avatar'), 'ext_in[avatar,gif,png,jpg,jpeg],is_image[avatar]|max_size[avatar,'.max_file_size().']');
-            $validation->setRule('fullname','fullname','required',[
-                'required' => lang('Admin.error.enterFullName')
-            ]);
-            if($this->request->getPost('email') != $this->staff->getData('email')){
-                $validation->setRule('fullname','email','required|valid_email|is_unique[staff.email]',[
-                    'required' => lang('Admin.error.enterValidEmail'),
-                    'valid_email' => lang('Admin.error.enterValidEmail'),
-                    'is_unique' => lang('Admin.error.emailTaken')
-                ]);
-            }
-
-            if($validation->withRequest($this->request)->run() == false){
-                $error_msg = $validation->listErrors();
-            }else{
-                $staff_data = array();
-                if($avatar = $this->request->getFile('avatar')){
-                    if($avatar->isValid() && !$avatar->hasMoved()){
-                        $newName = $avatar->getRandomName();
-                        $imgPath = Helpdesk::UPLOAD_PATH;
-                        $avatar->move($imgPath, $newName);
-                        $staff_data['avatar'] = $newName;
-                        if($this->staff->getData('avatar') != ''){
-                            if(file_exists($imgPath.DIRECTORY_SEPARATOR.$this->staff->getData('avatar'))){
-                                @unlink($imgPath.DIRECTORY_SEPARATOR.$this->staff->getData('avatar'));
-                            }
-                        }
-                        $image = Services::image()->withFile($imgPath.DIRECTORY_SEPARATOR.$newName);
-                        $width = $image->getWidth();
-                        $height = $image->getHeight();
-                        if($width > 300 || $height > 300){
-                            $image->fit(100, 100, 'center')
-                                ->save();
+                if($this->request->getPost('do') == 'delete_avatar')
+                {
+                    $this->staff->update(['avatar' => ''], $this->staff->getData('id'));
+                    if($this->staff->getData('avatar') != ''){
+                        $avatarFile = Helpdesk::UPLOAD_PATH.DIRECTORY_SEPARATOR.$this->staff->getData('avatar');
+                        if(file_exists($avatarFile)){
+                            @unlink($avatarFile);
                         }
                     }
+                    $this->session->setFlashdata('form_success', lang('Admin.account.avatarRemoved'));
+                    return redirect()->to(current_url());
                 }
-                $this->staff->update(array_merge($staff_data, [
-                    'fullname' => esc($this->request->getPost('fullname')),
-                    'email' => $this->request->getPost('email'),
-                    'signature' => $this->request->getPost('signature'),
-                    'timezone' => (in_array($this->request->getPost('timezone'), timezone_identifiers_list())?$this->request->getPost('timezone'):$this->staff->getData('timezone')),
-                ]));
-                $this->session->setFlashdata('form_success', lang('Admin.account.profileUpdated'));
-                return redirect()->to(current_url());
+                elseif($this->request->getPost('do') == 'update_password')
+                {
+                    $validation = Services::validation();
+                    $validation->setRules([
+                        'current_password' => 'required|min_length[6]',
+                        'new_password' => 'required|min_length[6]',
+                        'new_password2' => 'matches[new_password]'
+                    ],[
+                        'current_password' => [
+                            'required' => lang('Admin.error.wrongExistingPassword'),
+                            'min_length' => lang('Admin.error.wrongExistingPassword')
+                        ],
+                        'new_password' => [
+                            'required' => lang('Admin.form.enterNewPassword'),
+                            'min_length' => lang('Admin.error.passwordTooShort')
+                        ],
+                        'new_password2' => [
+                            'matches' => lang('Admin.error.passwordsNotMatches')
+                        ]
+                    ]);
+
+                    if($validation->withRequest($this->request)->run() == false){
+                        $error_msg = $validation->listErrors();
+                    }elseif(!password_verify($this->request->getPost('current_password'), $this->staff->getData('password'))){
+                        $error_msg = lang('Admin.error.wrongExistingPassword');
+                    }else{
+                        $this->staff->updatePassword($this->request->getPost('new_password'));
+                        $this->session->setFlashdata('form_success', lang('Admin.account.passwordUpdated'));
+                        return redirect()->withCookies()->to(current_url());
+                    }
+                }
+                elseif ($this->request->getPost('do') == 'update_profile'){
+                    $validation = Services::validation();
+                    $validation->setRule('avatar', lang('Admin.form.avatar'), 'ext_in[avatar,gif,png,jpg,jpeg],is_image[avatar]|max_size[avatar,'.max_file_size().']');
+                    $validation->setRule('fullname','fullname','required',[
+                        'required' => lang('Admin.error.enterFullName')
+                    ]);
+                    if($this->request->getPost('email') != $this->staff->getData('email')){
+                        $validation->setRule('fullname','email','required|valid_email|is_unique[staff.email]',[
+                            'required' => lang('Admin.error.enterValidEmail'),
+                            'valid_email' => lang('Admin.error.enterValidEmail'),
+                            'is_unique' => lang('Admin.error.emailTaken')
+                        ]);
+                    }
+
+                    if($validation->withRequest($this->request)->run() == false){
+                        $error_msg = $validation->listErrors();
+                    }else{
+                        $staff_data = array();
+                        if($avatar = $this->request->getFile('avatar')){
+                            if($avatar->isValid() && !$avatar->hasMoved()){
+                                $newName = $avatar->getRandomName();
+                                $imgPath = Helpdesk::UPLOAD_PATH;
+                                $avatar->move($imgPath, $newName);
+                                $staff_data['avatar'] = $newName;
+                                if($this->staff->getData('avatar') != ''){
+                                    if(file_exists($imgPath.DIRECTORY_SEPARATOR.$this->staff->getData('avatar'))){
+                                        @unlink($imgPath.DIRECTORY_SEPARATOR.$this->staff->getData('avatar'));
+                                    }
+                                }
+                                $image = Services::image()->withFile($imgPath.DIRECTORY_SEPARATOR.$newName);
+                                $width = $image->getWidth();
+                                $height = $image->getHeight();
+                                if($width > 300 || $height > 300){
+                                    $image->fit(100, 100, 'center')
+                                        ->save();
+                                }
+                            }
+                        }
+                        $this->staff->update(array_merge($staff_data, [
+                            'fullname' => esc($this->request->getPost('fullname')),
+                            'email' => $this->request->getPost('email'),
+                            'signature' => $this->request->getPost('signature'),
+                            'timezone' => (in_array($this->request->getPost('timezone'), timezone_identifiers_list())?$this->request->getPost('timezone'):$this->staff->getData('timezone')),
+                        ]));
+                        $this->session->setFlashdata('form_success', lang('Admin.account.profileUpdated'));
+                        return redirect()->to(current_url());
+                    }
+                }
             }
         }
 

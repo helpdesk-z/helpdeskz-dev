@@ -25,6 +25,8 @@ class Users extends BaseController
             $validation->setRule('user_id',lang('Admin.form.user'), 'required|is_natural_no_zero');
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $this->client->deleteAccount($this->request->getPost('user_id'));
                 $this->session->setFlashdata('form_success',lang('Admin.users.userRemoved'));
@@ -67,6 +69,8 @@ class Users extends BaseController
             ]);
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $client_id = $this->client->createAccount($this->request->getPost('fullname'), $this->request->getPost('email'), $this->request->getPost('password'), ($this->request->getPost('notify') ? true : false));
                 if($this->request->getPost('status') == '0'){
@@ -116,6 +120,8 @@ class Users extends BaseController
             ]);
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $this->client->update([
                     'fullname' => esc($this->request->getPost('fullname')),
@@ -126,6 +132,9 @@ class Users extends BaseController
                 $this->session->setFlashdata('form_success', lang('Admin.users.accountUpdated'));
                 return redirect()->to(current_url());
             }
+        }
+        if(defined('HDZDEMO')){
+            $user->email = '[Hidden in demo]';
         }
         return view('staff/users_form',[
             'error_msg' => isset($error_msg) ? $error_msg : null,
