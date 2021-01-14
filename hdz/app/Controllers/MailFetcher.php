@@ -13,11 +13,12 @@ use App\Libraries\Attachments;
 use App\Libraries\Emails;
 use App\Libraries\Tickets;
 use CodeIgniter\Files\File;
+use PhpImap\Exceptions\ConnectionException;
 use PhpImap\Mailbox;
 
 class MailFetcher extends BaseController
 {
-    public function fetch()
+    public function imap()
     {
         $config = \HTMLPurifier_Config::createDefault();
         $html_purifier = new \HTMLPurifier($config);
@@ -34,13 +35,14 @@ class MailFetcher extends BaseController
                 );
                 try{
                     $mailsIds = $mailbox->searchMailbox('ALL');
-                }catch (\PhpImap\Exceptions\ConnectionException $ex){
+                }catch (ConnectionException $ex){
                     log_message('error','IMAP connection failed: '.$ex);
                     return;
                 }
                 if(!$mailsIds){
                     return;
                 }
+
                 $mailbox->setAttachmentsDir($attach_dir);
                 foreach ($mailsIds as $k => $v){
                     $mail = $mailbox->getMail($mailsIds[$k]);
@@ -65,22 +67,17 @@ class MailFetcher extends BaseController
                     if(!empty($mail->getAttachments())){
                         foreach ($mail->getAttachments() as $file){
                             if(file_exists($file->filePath)){
-                                $file = new File($file->filePath);
-                                $size = $file->getSize();
-                                $file_type = $file->getMimeType();
-                                $filename = $file->getRandomName();
-                                $file->move($attach_dir, $filename);
-                                #$real_path = $file->filePath;
-                                #$ext = pathinfo($real_path, PATHINFO_EXTENSION);
-                                #$filename = time().'_'.random_string('md5').'.'.$ext;
-                                #rename($real_path, $attach_dir.'/'.$filename);
-                                //$file_info = get_file_info($attach_dir.'/'.$filename);
-                                //$size = $file_info['size'];
-                                //$file_type = get_mime_by_extension($attach_dir.'/'.$filename);
+
+                                $fileInfo = new File($file->filePath);
+                                $size = $fileInfo->getSize();
+                                $file_type = $fileInfo->getMimeType();
+                                $filename = $fileInfo->getRandomName();
+                                $fileInfo->move($attach_dir, $filename);
+                                $original_name = $file->name;
                                 $attachments->addFromTicket(
                                     $ticket_id,
                                     $message_id,
-                                    $file->getFilename(),
+                                    $original_name,
                                     $filename,
                                     $size,
                                     $file_type

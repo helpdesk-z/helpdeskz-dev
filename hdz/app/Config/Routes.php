@@ -95,6 +95,11 @@ $routes->add('account/logout', 'UserAuth::logout',[
     'filter' => 'userAuth:user'
 ]);
 
+#Imap
+$routes->add('imap_fetcher', 'MailFetcher::imap',[
+    'as' => 'imap_fetcher'
+]);
+
 #Install
 $routes->add('install', 'Install::home',[
     'as' => 'install_home'
@@ -102,8 +107,6 @@ $routes->add('install', 'Install::home',[
 $routes->add('install/install-wizard', 'Install::install',[
     'as' => 'install_wizard'
 ]);
-
-
 $routes->add('install/install-wizard/success', 'Install::installComplete',[
     'as' => 'install_complete'
 ]);
