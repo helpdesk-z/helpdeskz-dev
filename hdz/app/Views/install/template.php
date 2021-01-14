@@ -25,7 +25,7 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-body">
-                    <img src="/assets/helpdeskz/images/logo.png" alt="" class="img-fluid mb-4">
+                    <img src="<?php echo base_url('assets/helpdeskz/images/logo.png');?>" alt="" class="img-fluid mb-4">
                     <?php
                     echo $this->renderSection('content');
                     ?>

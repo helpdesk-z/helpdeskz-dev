@@ -1,6 +1,8 @@
 {
   "name": "EvolutionScript",
   "require": {
-    "google/recaptcha": "~1.2"
+    "google/recaptcha": "~1.2",
+    "php-imap/php-imap": "4.1.0",
+    "ezyang/htmlpurifier": "4.13"
   }
 }

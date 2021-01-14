@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="3.11.5@3c60609c218d4d4b3b257728b8089094e5c6c6c2">
+  <file src="examples/get_and_parse_all_emails_without_saving_attachments.php">
+    <UnusedVariable occurrences="1">
+      <code>$mailbox</code>
+    </UnusedVariable>
+  </file>
+  <file src="src/PhpImap/Imap.php">
+    <DocblockTypeContradiction occurrences="3">
+      <code>\is_int($section)</code>
+      <code>!\is_string($section) &amp;&amp; !\is_int($section)</code>
+      <code>\is_resource($maybe)</code>
+    </DocblockTypeContradiction>
+  </file>
+  <file src="src/PhpImap/IncomingMail.php">
+    <PossiblyUnusedMethod occurrences="1">
+      <code>replaceInternalLinks</code>
+    </PossiblyUnusedMethod>
+    <PropertyTypeCoercion occurrences="1">
+      <code>$this-&gt;dataInfo</code>
+    </PropertyTypeCoercion>
+  </file>
+  <file src="src/PhpImap/Mailbox.php">
+    <DocblockTypeContradiction occurrences="2">
+      <code>\in_array($imapSearchOption, $supported_options, true)</code>
+      <code>\in_array($key, $supported_params, true)</code>
+    </DocblockTypeContradiction>
+    <InvalidArgument occurrences="3">
+      <code>$element-&gt;charset</code>
+      <code>$element-&gt;charset</code>
+      <code>$element-&gt;text</code>
+      <code>$element-&gt;charset</code>
+      <code>$element-&gt;charset</code>
+      <code>$element-&gt;text</code>
+    </InvalidArgument>
+    <PossiblyUnusedMethod occurrences="24">
+      <code>setConnectionRetry</code>
+      <code>setConnectionRetryDelay</code>
+      <code>setExpungeOnDisconnect</code>
+      <code>renameMailbox</code>
+      <code>getListingFolders</code>
+      <code>searchMailboxFrom</code>
+      <code>searchMailboxFromDisableServerEncoding</code>
+      <code>searchMailboxMergeResults</code>
+      <code>searchMailboxMergeResultsDisableServerEncoding</code>
+      <code>saveMail</code>
+      <code>moveMail</code>
+      <code>copyMail</code>
+      <code>markMailAsUnread</code>
+      <code>markMailAsImportant</code>
+      <code>markMailsAsRead</code>
+      <code>markMailsAsUnread</code>
+      <code>markMailsAsImportant</code>
+      <code>getMailboxHeaders</code>
+      <code>getMailboxInfo</code>
+      <code>getQuotaLimit</code>
+      <code>getQuotaUsage</code>
+      <code>getSubscribedMailboxes</code>
+      <code>subscribeMailbox</code>
+      <code>unsubscribeMailbox</code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="tests/unit/MailboxTest.php">
+    <InvalidArgument occurrences="1">
+      <code>self::ANYTHING</code>
+    </InvalidArgument>
+  </file>
+</files>
