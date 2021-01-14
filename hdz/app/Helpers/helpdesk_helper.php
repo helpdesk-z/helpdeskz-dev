@@ -260,3 +260,8 @@ function parseCustomFieldsForm($customField)
     $customFields = new \App\Libraries\CustomFields();
     return $customFields->parseForm($customField);
 }
+
+function mail_piping()
+{
+    return \Config\Services::mailFetcher()->pipe();
+}

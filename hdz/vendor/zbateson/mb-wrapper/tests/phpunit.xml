@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="./bootstrap.php"
+    colors="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false">
+    <testsuites>
+        <testsuite name="MbWrapper">
+            <directory suffix="Test.php">MbWrapper</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

@@ -96,9 +96,9 @@ $routes->add('account/logout', 'UserAuth::logout',[
 ]);
 
 #Imap
-$routes->add('imap_fetcher', 'MailFetcher::imap',[
-    'as' => 'imap_fetcher'
-]);
+$routes->add('imap_fetcher', 'MailFetcher::imap');
+#Pipe
+$routes->add('mail_pipe', 'MailFetcher::pipe');
 
 #Install
 $routes->add('install', 'Install::home',[

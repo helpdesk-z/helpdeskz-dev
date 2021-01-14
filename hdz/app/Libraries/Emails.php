@@ -47,12 +47,7 @@ class Emails
 
     public function getDefault()
     {
-        $q = $this->emailModel->where('default', 1)
-            ->get(1);
-        if($q->resultID->num_rows == 0){
-            return null;
-        }
-        return $q->getRow();
+        return $this->getRow(['default' => 1]);
     }
 
     public function getByID($id)
@@ -63,14 +58,18 @@ class Emails
         return null;
     }
 
-    public function getByDepartment($id)
+    public function getRow($where=array())
     {
-        $q = $this->emailModel->where('department_id', $id)
-            ->get(1);
+        $q = $this->emailModel->where($where)->get(1);
         if($q->resultID->num_rows == 0){
             return null;
         }
         return $q->getRow();
+    }
+
+    public function getByDepartment($id)
+    {
+        return $this->getRow(['department_id' => $id]);
     }
 
     public function set_default($id)

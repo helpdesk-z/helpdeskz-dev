@@ -51,50 +51,23 @@ class Install extends BaseController
         if (  !function_exists('mysqli_connect') ){
             $error_msg[] = lang('Install.error.mysql');
         }
-        $attachment_path = WRITEPATH.'attachments';
-        $logs_path = WRITEPATH.'logs';
-        $session_path = WRITEPATH.'session';
-        $upload_path = WRITEPATH.'uploads';
-        $site_upload_path = FCPATH.'upload';
-        if ( ! is_really_writable($attachment_path) )
-        {
-            $error_msg[] = lang_replace('Install.error.writable', [
-                '%folder%' => $attachment_path,
-                '[b]' => '<span class="font-weight-bold">',
-                '[/b]' => '</span>'
-            ]);
-        }
-        if ( ! is_really_writable($logs_path) )
-        {
-            $error_msg[] = lang_replace('Install.error.writable', [
-                '%folder%' => $logs_path,
-                '[b]' => '<span class="font-weight-bold">',
-                '[/b]' => '</span>'
-            ]);
-        }
-        if ( ! is_really_writable($session_path) )
-        {
-            $error_msg[] = lang_replace('Install.error.writable', [
-                '%folder%' => $session_path,
-                '[b]' => '<span class="font-weight-bold">',
-                '[/b]' => '</span>'
-            ]);
-        }
-        if ( ! is_really_writable($upload_path) )
-        {
-            $error_msg[] = lang_replace('Install.error.writable', [
-                '%folder%' => $upload_path,
-                '[b]' => '<span class="font-weight-bold">',
-                '[/b]' => '</span>'
-            ]);
-        }
-        if ( ! is_really_writable($site_upload_path) )
-        {
-            $error_msg[] = lang_replace('Install.error.writable', [
-                '%folder%' => $site_upload_path,
-                '[b]' => '<span class="font-weight-bold">',
-                '[/b]' => '</span>'
-            ]);
+        $path_list = [
+            WRITEPATH.'attachments',
+            WRITEPATH.'logs',
+            WRITEPATH.'mails',
+            WRITEPATH.'session',
+            WRITEPATH.'uploads',
+            FCPATH.'upload',
+            FCPATH.'upload'.DIRECTORY_SEPARATOR.'thumbs'
+        ];
+        foreach ($path_list as $path){
+            if(!is_really_writable($path)){
+                $error_msg[] = lang_replace('Install.error.writable', [
+                    '%folder%' => $path,
+                    '[b]' => '<span class="font-weight-bold">',
+                    '[/b]' => '</span>'
+                ]);
+            }
         }
         $db = Database::connect();
         try {
