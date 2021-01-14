@@ -36,7 +36,7 @@ function staff_avatar($avatarFile='')
     if($avatarFile == ''){
         return $default_avatar;
     }
-    $upload_avatar = FCPATH.'upload'.DIRECTORY_SEPARATOR.$avatarFile;
+    $upload_avatar = \Config\Helpdesk::UPLOAD_PATH.DIRECTORY_SEPARATOR.$avatarFile;
     if(!file_exists($upload_avatar)){
         return $default_avatar;
     }
@@ -49,7 +49,7 @@ function user_avatar($avatarFile='')
     if($avatarFile == ''){
         return $default_avatar;
     }
-    $upload_avatar = FCPATH.'upload'.DIRECTORY_SEPARATOR.$avatarFile;
+    $upload_avatar = \Config\Helpdesk::UPLOAD_PATH.DIRECTORY_SEPARATOR.$avatarFile;
     if(!file_exists($upload_avatar)){
         return $default_avatar;
     }

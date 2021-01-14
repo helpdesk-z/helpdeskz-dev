@@ -23,7 +23,7 @@ class UploadEditor
     public function __construct()
     {
         $request = Services::request();
-        $this->uploadPath = Helpdesk::HELPDESK_EDITOR_PATH;
+        $this->uploadPath = Helpdesk::UPLOAD_PATH;
         $this->maxUploadSize = max_file_size();
         $this->page = $request->getGet('page') ? $request->getGet('page') : 1;
         $this->getImages();
@@ -71,7 +71,7 @@ class UploadEditor
             return false;
         }
         $newName = $file->getRandomName();
-        $imgPath = FCPATH.'upload';
+        $imgPath = Helpdesk::UPLOAD_PATH;
         $thumbPath = $imgPath.DIRECTORY_SEPARATOR.'thumbs';
         if(!is_dir($thumbPath)){
             mkdir($thumbPath);

@@ -9,6 +9,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Database\Exceptions\DatabaseException;
 use Config\Database;
+use Config\Helpdesk;
 use Config\Services;
 
 define('INSTALL_ENVIRONMENT', 1);
@@ -57,8 +58,8 @@ class Install extends BaseController
             WRITEPATH.'mails',
             WRITEPATH.'session',
             WRITEPATH.'uploads',
-            FCPATH.'upload',
-            FCPATH.'upload'.DIRECTORY_SEPARATOR.'thumbs'
+            Helpdesk::UPLOAD_PATH,
+            Helpdesk::UPLOAD_PATH.DIRECTORY_SEPARATOR.'thumbs'
         ];
         foreach ($path_list as $path){
             if(!is_really_writable($path)){

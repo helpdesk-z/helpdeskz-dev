@@ -111,7 +111,7 @@ $routes->add('install/install-wizard/success', 'Install::installComplete',[
     'as' => 'install_complete'
 ]);
 #Staff
-$routes->group(Helpdesk::HELPDESK_STAFF_URI, [
+$routes->group(Helpdesk::STAFF_URI, [
     'filter' => 'staffAuth'
 ], function($routes){
     $routes->add('login','Staff\Auth::login',[

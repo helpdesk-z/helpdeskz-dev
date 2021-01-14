@@ -8,6 +8,7 @@
 namespace App\Controllers\Staff;
 
 use App\Controllers\BaseController;
+use Config\Helpdesk;
 use Config\Services;
 
 class Auth extends BaseController
@@ -72,7 +73,7 @@ class Auth extends BaseController
         {
             $this->staff->update(['avatar' => ''], $this->staff->getData('id'));
             if($this->staff->getData('avatar') != ''){
-                $avatarFile = FCPATH.'upload'.DIRECTORY_SEPARATOR.$this->staff->getData('avatar');
+                $avatarFile = Helpdesk::UPLOAD_PATH.DIRECTORY_SEPARATOR.$this->staff->getData('avatar');
                 if(file_exists($avatarFile)){
                     @unlink($avatarFile);
                 }
@@ -132,7 +133,7 @@ class Auth extends BaseController
                 if($avatar = $this->request->getFile('avatar')){
                     if($avatar->isValid() && !$avatar->hasMoved()){
                         $newName = $avatar->getRandomName();
-                        $imgPath = FCPATH.'upload';
+                        $imgPath = Helpdesk::UPLOAD_PATH;
                         $avatar->move($imgPath, $newName);
                         $staff_data['avatar'] = $newName;
                         if($this->staff->getData('avatar') != ''){

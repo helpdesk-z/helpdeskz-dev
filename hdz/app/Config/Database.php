@@ -109,12 +109,12 @@ class Database extends \CodeIgniter\Database\Config
 		}
 
 
-		$this->default['hostname'] = Helpdesk::HELPDESK_DB_HOST;
-		$this->default['username'] = Helpdesk::HELPDESK_DB_USER;
-		$this->default['password'] = Helpdesk::HELPDESK_DB_PASSWORD;
-        $this->default['database'] = Helpdesk::HELPDESK_DB_NAME;
-        $this->default['DBPrefix'] = Helpdesk::HELPDESK_DB_PREFIX;
-        $this->default['port'] = Helpdesk::HELPDESK_DB_PORT;
+		$this->default['hostname'] = Helpdesk::DB_HOST;
+		$this->default['username'] = Helpdesk::DB_USER;
+		$this->default['password'] = Helpdesk::DB_PASSWORD;
+        $this->default['database'] = Helpdesk::DB_NAME;
+        $this->default['DBPrefix'] = Helpdesk::DB_PREFIX;
+        $this->default['port'] = Helpdesk::DB_PORT;
 	}
 
 	//--------------------------------------------------------------------

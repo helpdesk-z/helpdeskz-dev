@@ -1,7 +1,10 @@
 <?php namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
-
+$className = '\Config\Helpdesk';
+if(!class_exists($className)){
+    die('Edit the file Helpdesk.new.php with your configuration and rename to Helpdesk.php ('.APPPATH.'Config)');
+}
 class App extends Helpdesk
 {
 
@@ -21,7 +24,7 @@ class App extends Helpdesk
 	| environments.
 	|
 	*/
-	public $baseURL = self::HELPDESK_URL;
+	public $baseURL = self::SITE_URL;
 
 	/*
 	|--------------------------------------------------------------------------
@@ -63,7 +66,7 @@ class App extends Helpdesk
 	| should run under for this request.
 	|
 	*/
-	public $defaultLocale = self::HELPDESK_LANG;
+	public $defaultLocale = self::DEFAULT_LANG;
 
 	/*
 	|--------------------------------------------------------------------------
@@ -88,7 +91,7 @@ class App extends Helpdesk
 	| found, the first locale will be used.
 	|
 	*/
-	public $supportedLocales = self::HELPDESK_LANG_LIST;
+	public $supportedLocales = ['en'];
 
 	/*
 	|--------------------------------------------------------------------------
