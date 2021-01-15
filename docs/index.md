@@ -2,4 +2,4 @@
 HelpDeskz User Guide
 ============
 - General
-    - `Welcome to HelpDeskZ <welcome.rst>`_
+    - `Welcome to HelpDeskZ <./welcome.md>`_
