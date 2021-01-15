@@ -1,7 +1,9 @@
 Fresh Installation
 ======================
+
 .. note::
-Be sure that your server meets the `HelpDeskZ requirements </intro/requirements>`.
+
+    Be sure that your server meets the :doc:`HelpDeskZ requirements </intro/requirements>`.
 
 - Connect with FTP to the *public folder* of your server.
 - Upload all HelpDeskZ in the directory that you will install it (domain directory or subdomain).
