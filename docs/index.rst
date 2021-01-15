@@ -6,12 +6,13 @@ HelpDeskz User Guide
     :maxdepth: 2
 
     intro/index
-    requirements
+    intro/requirements
 
 .. toctree::
     :caption: Installation
     :maxdepth: 2
 
-    installation
+    installation/index
+    installation/repositories
 
 
