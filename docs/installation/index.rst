@@ -25,5 +25,4 @@ Install it!
 
 .. note::
 
-If you want to make a new installation again, then be sure you removed the file **/hdz/writable/cache/instal.config**
-to unlock the installation wizard.
+    If you want to make a new installation again, then be sure you removed the file **/hdz/writable/cache/instal.config** to unlock the installation wizard.
