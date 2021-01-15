@@ -20,4 +20,6 @@ HelpDeskz User Guide
     :caption: Configuration
     :maxdepth:
 
+    configuration/email_piping
+
 
