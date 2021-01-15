@@ -1,3 +1,4 @@
+.. _requirements:
 Server Requirements
 ====================
 
