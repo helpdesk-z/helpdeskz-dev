@@ -8,9 +8,6 @@ HelpDeskz User Guide
     welcome
     requirements
 
-Getting Started
-^^^^^^^^^^^^^^^
-
 .. toctree::
     :caption: Installation
     :maxdepth: 2
