@@ -5,7 +5,7 @@ HelpDeskz User Guide
     :caption: Welcome to HelpDeskZ
     :maxdepth: 2
 
-    welcome
+    intro/index
     requirements
 
 .. toctree::
