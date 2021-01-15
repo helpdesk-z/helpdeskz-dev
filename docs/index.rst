@@ -18,7 +18,7 @@ HelpDeskz User Guide
 
 .. toctree::
     :caption: Configuration
-    :maxdepth:
+    :maxdepth: 2
 
     configuration/email_piping
 
