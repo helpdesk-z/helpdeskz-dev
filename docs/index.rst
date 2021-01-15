@@ -1,5 +1,5 @@
 HelpDeskz User Guide
 ====================
 - General
-    - * :ref:`welcome`
-    - * :ref:`requirements`
+    - :ref:`welcome<welcome.rst>`
+    - :ref:`requirements.rst`
