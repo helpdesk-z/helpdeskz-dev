@@ -1,6 +1,7 @@
 HelpDeskz User Guide
 ====================
-- General
+General
+^^^^^^^
     - :ref:`welcome`
     - :ref:`requirements`
     - :ref:`nose`
