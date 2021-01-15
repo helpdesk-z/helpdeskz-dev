@@ -13,6 +13,7 @@ HelpDeskz User Guide
     :maxdepth: 2
 
     installation/index
+    installation/upgrade
     installation/repositories
 
 
