@@ -41,9 +41,16 @@ class Staff
             return $this->logout();
         }
         $request = Services::request();
-        if(!password_verify(sha1($data->password.$data->token).':'.$request->getUserAgent(), $hash)){
-            return $this->logout();
+        if(defined('HDZDEMO')){
+            if(!password_verify(sha1($data->password.'ThisIsDemoToken'), $hash)){
+                return $this->logout();
+            }
+        }else{
+            if(!password_verify(sha1($data->password.$data->token).':'.$request->getUserAgent(), $hash)){
+                return $this->logout();
+            }
         }
+
         $this->user_data = $data;
         $this->user_data->department = unserialize($this->user_data->department);
         $this->user_data->department = (is_array($this->user_data->department)?$this->user_data->department:array());
@@ -54,7 +61,11 @@ class Staff
     {
         $request = Services::request();
         $session = Services::session();
-        $hash = sha1($password.$token).':'.$request->getUserAgent();
+        if(defined('HDZDEMO')){
+            $hash = sha1($password.'ThisIsDemoToken');
+        }else{
+            $hash = sha1($password.$token).':'.$request->getUserAgent();
+        }
         $hash = password_hash($hash, PASSWORD_BCRYPT);
         $session->set('sid', $id);
         $session->set('shash', $hash);
