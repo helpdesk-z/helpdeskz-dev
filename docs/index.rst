@@ -5,6 +5,7 @@ Welcome to HelpDeskZ
 ^^^^^^^^^^^^^^^
 
 .. toctree::
+    :caption: Table of contents
     :maxdepth: 2
 
     welcome
