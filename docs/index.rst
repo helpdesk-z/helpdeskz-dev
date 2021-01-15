@@ -1,5 +1,5 @@
-============
 HelpDeskz User Guide
 ============
 - General
-    - [Welcome to HelpDeskZ](welcome.rst)
+    - :ref:`welcome`
+    - :ref:`requirements`
