@@ -3,11 +3,7 @@ HelpDeskz User Guide
 
 Welcome to HelpDeskZ
 _____________________
-.. toctree::
-    :maxdepth: 2
-
-    welcome
-    requirements
+:doc: `Welcome to helpdeskz </welcome>` |
 
 Getting Started
 ^^^^^^^^^^^^^^^
