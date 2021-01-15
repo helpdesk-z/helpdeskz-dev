@@ -1,5 +1,5 @@
 HelpDeskz User Guide
 ====================
 - General
-    - :ref:`welcome.rst`
+    - :ref:`welcome`
     - :ref:`linking-pages`
