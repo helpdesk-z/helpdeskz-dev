@@ -16,4 +16,8 @@ HelpDeskz User Guide
     installation/upgrade
     installation/repositories
 
+.. toctree::
+    :caption: Configuration
+    :maxdepth:
+
 
