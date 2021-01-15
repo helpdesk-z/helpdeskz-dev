@@ -8,8 +8,3 @@ General
     requirements
     welcome
 
-Indices and tables
-==================
-    - :ref:`welcome`
-    - :ref:`requirements`
-    - :ref:`nose`

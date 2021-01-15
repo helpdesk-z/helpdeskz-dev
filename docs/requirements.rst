@@ -1,5 +1,3 @@
-.. _requirements:
-
 Server Requirements
 ====================
 
