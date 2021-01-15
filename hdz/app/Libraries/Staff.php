@@ -97,6 +97,22 @@ class Staff
      * Login
      * ------------------------------
      */
+    public function verifyPassword($staffData)
+    {
+        $password = Services::request()->getPost('password');
+        if(!password_verify($password, $staffData->password)){
+            //Verify if it belongs to old version (1.2 or less)
+            if(sha1($password) != $staffData->password){
+                return false;
+            }else{
+                //Update password
+                $this->update([
+                    'password' => password_hash($password, PASSWORD_BCRYPT)
+                ], $staffData->id);
+            }
+        }
+        return true;
+    }
     public function login($staff_data, $remember=true)
     {
         $this->update([

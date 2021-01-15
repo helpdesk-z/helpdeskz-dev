@@ -110,6 +110,9 @@ $routes->add('install/install-wizard', 'Install::install',[
 $routes->add('install/install-wizard/success', 'Install::installComplete',[
     'as' => 'install_complete'
 ]);
+$routes->add('install/upgrade-wizard', 'Install::upgrade',[
+    'as' => 'upgrade_wizard'
+]);
 #Staff
 $routes->group(Helpdesk::STAFF_URI, [
     'filter' => 'staffAuth'

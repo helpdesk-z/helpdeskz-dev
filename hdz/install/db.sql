@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS `{{db_prefix}}articles`;
 CREATE TABLE `{{db_prefix}}articles` (
   `id` int NOT NULL,
   `title` varchar(200) NOT NULL,
-  `content` mediumtext,
+  `content` text,
   `category` int DEFAULT '0',
   `staff_id` int NOT NULL DEFAULT '0',
   `date` int NOT NULL,
@@ -310,6 +310,7 @@ ALTER TABLE `{{db_prefix}}tickets_messages`
 ALTER TABLE `{{db_prefix}}users`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
+
 INSERT INTO `{{db_prefix}}config` (`id`, `logo`, `site_name`, `windows_title`, `page_size`, `date_format`, `timezone`, `recaptcha`, `recaptcha_sitekey`, `recaptcha_privatekey`, `login_attempt`, `login_attempt_minutes`, `reply_order`, `tickets_page`, `tickets_replies`, `overdue_time`, `ticket_autoclose`, `ticket_attachment`, `ticket_attachment_number`, `ticket_file_size`, `ticket_file_type`, `kb_articles`, `kb_maxchar`, `kb_popular`, `kb_latest`) VALUES
 (1, '', 'HelpDeskZ', 'HelpDeskZ Demo', 25, 'd F Y h:i a', 'America/Lima', 0, '', '', 3, 5, 'desc', 15, 15, 48, 96, 1, 3, 2.5, 'a:3:{i:0;s:3:\"jpg\";i:1;s:3:\"png\";i:2;s:3:\"gif\";}', 2, 200, 3, 3);
 INSERT INTO `{{db_prefix}}departments` (`id`, `dep_order`, `name`, `private`) VALUES
@@ -320,7 +321,7 @@ INSERT INTO `{{db_prefix}}emails_tpl` (`id`, `position`, `name`, `subject`, `mes
 ('autoresponse', 4, 'New Message Autoresponse', '[#%ticket_id%] %ticket_subject%', '<p>Dear %client_name%,</p>\r\n<p>Your reply to support request #%ticket_id% has been noted.</p>\r\n<p>Ticket Details <br />--------------------<br />Ticket ID: %ticket_id% <br />Department: %ticket_department% <br />Status: %ticket_status% <br />Priority: %ticket_priority% <br />Helpdesk: %support_url%</p>', 0, 0),
 ('lost_password', 2, 'Lost password confirmation', 'Password recovery for %company_name%', '<p>We have received a request to reset your account password for the %company_name% helpdesk (%helpdesk_url%).</p>\r\n<p>Your new passsword is: %client_password%</p>\r\n<p>Thank you, <br />%company_name% <br />Helpdesk: %support_url%</p>', 0, 2),
 ('new_ticket', 3, 'New ticket creation', '[#%ticket_id%] %ticket_subject%', '<p>Dear %client_name%,</p>\r\n<p>Thank you for contacting us. This is an automated response confirming the receipt of your ticket. One of our agents will get back to you as soon as possible.</p>\r\n<p>For your records, the details of the ticket are listed below. When replying, please make sure that the ticket ID is kept in the subject line to ensure that your replies are tracked appropriately.</p>\r\n<p>Ticket ID: %ticket_id% <br />Subject: %ticket_subject% <br />Department: %ticket_department% <br />Status: %ticket_status% <br />Priority: %ticket_priority%</p>\r\n<p>You can check the status of or reply to this ticket online at: %support_url%</p>\r\n<p>Regards, <br />%company_name%</p>', 0, 1),
-('new_user', 1, 'Welcome email registration', 'Welcome to %company_name% helpdesk', '<p>Hello,</p>\r\n<p>This email is confirmation that you are now registered at our helpdesk.</p>\r\n<p><strong>Registered email:</strong> %client_email% <br /><strong>Password:</strong> %client_password%</p>\r\n<p>You can visit the helpdesk to browse articles and contact us at any time:</p>\r\n<p>%support_url%</p>\r\n<p>Thank you for registering!</p>\r\n<p>%company_name%<br />Helpdesk: %support_url%</p>', 1609349084, 1),
+('new_user', 1, 'Welcome email registration', 'Welcome to %company_name% helpdesk', '<p>Hello,</p>\r\n<p>This email is confirmation that you are now registered at our helpdesk.</p>\r\n<p><strong>Registered email:</strong> %client_email% <br /><strong>Password:</strong> %client_password%</p>\r\n<p>You can visit the helpdesk to browse articles and contact us at any time:</p>\r\n<p>%support_url%</p>\r\n<p>Thank you for registering!</p>\r\n<p>%company_name%<br />Helpdesk: %support_url%</p>', 0, 1),
 ('staff_reply', 5, 'Staff Reply', 'Re: [#%ticket_id%] %ticket_subject%', '<p>%message% </p>\r\n<p>-------------------------------------------------------------<br />Ticket Details<br />-------------------------------------------------------------<br /><strong>Ticket ID:</strong> %ticket_id% <br /><strong>Department:</strong> %ticket_department% <br /><strong>Status:</strong> %ticket_status% <br /><strong>Priority:</strong> %ticket_priority% <br /><strong>Helpdesk:</strong> %support_url%</p>', 0, 2),
 ('staff_ticketnotification', 6, 'New ticket notification to staff', 'New ticket notification', '<p>Dear %staff_name%,</p>\r\n<p>A new ticket has been created in department assigned for you, please login to staff panel to answer it.</p>\r\n<p>Ticket Details<br />-------------------<br />Ticket ID: %ticket_id% <br />Department: %ticket_department% <br />Status: %ticket_status% <br />Priority: %ticket_priority% <br />Helpdesk: %support_url%</p>', 0, 0);
 INSERT INTO `{{db_prefix}}priority` (`id`, `name`, `color`) VALUES

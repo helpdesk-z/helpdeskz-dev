@@ -20,7 +20,8 @@ return [
     'confirmPassword' => 'Confirm password',
     'complete' => 'Installation complete!',
     'completeDescr' => 'Your copy of HelpDeskZ was has been installed successfully!',
-    'deleteInstallPath' => 'Do not forget to remove the install folder: %path%',
+    'installLocked' => 'The installer has been locked for security reasons, to make a fresh installation, remove the file /hdz/writable/cache/install.config',
+    'isLocked' => 'The installer is currently locked, please remove \'install.config\' from the cache directory to continue',
     'goToStaffPanel' => 'Go to staff panel',
     'goToHelpDesk' => 'Go to HelpDesk home page',
     'error' => [
@@ -33,5 +34,10 @@ return [
         'username' => 'Enter a valid username, it may only contain alphanumeric, underscore, and dash characters.',
         'password' => 'Enter a valid password, it must be at least 6 characters in length.',
         'passwordConfirmation' => 'Passwords do not match.'
-    ]
+    ],
+    'upgradeWizard' => 'Upgrade Wizard',
+    'upgradeInfo' => 'Your HelpDeskZ will be updated to version %version%, please click in the button below to start with this process.',
+    'upgradeStop' => 'You are using the latest version of HelpDeskZ, you do not need to make an upgrade.',
+    'upgradeNoVersion' => 'We did not detect any old installation of HelpDeskZ.',
+    'upgradeFromVersion' => 'You are trying to upgrade from v%old% to v%new%'
 ];

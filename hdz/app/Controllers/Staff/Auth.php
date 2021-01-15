@@ -40,7 +40,7 @@ class Auth extends BaseController
                             '%attempt2%' => $this->settings->config('login_attempt')
                         ]);
                 }
-            }elseif (!password_verify($this->request->getPost('password'), $data->password)){
+            }elseif (!$this->staff->verifyPassword($data)){
                 $this->staff->addLoginLog($data->id, false);
                 $attempts = $this->staff->addLoginAttempt();
                 $error_msg = lang('Admin.login.invalidUsernamePassword');
