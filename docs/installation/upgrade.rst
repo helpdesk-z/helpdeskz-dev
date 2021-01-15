@@ -6,4 +6,4 @@ Please read the upgrade notes corresponding to the version you are upgrading fro
 .. toctree::
     :maxdepth: 2
 
-    installation/upgrade_2x
+    upgrade_2x
