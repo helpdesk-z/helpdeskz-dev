@@ -10,7 +10,7 @@ HelpDeskz User Guide
 
 .. toctree::
     :caption: Installation
-    :maxdepth: 2
+    :maxdepth: 3
 
     installation/index
     installation/upgrade
