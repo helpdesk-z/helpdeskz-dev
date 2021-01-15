@@ -1,11 +1,8 @@
 HelpDeskz User Guide
 ====================
 
-Welcome to HelpDeskZ
-^^^^^^^^^^^^^^^
-
 .. toctree::
-    :caption: Table of contents
+    :caption: Welcome to HelpDeskZ
     :maxdepth: 2
 
     welcome
