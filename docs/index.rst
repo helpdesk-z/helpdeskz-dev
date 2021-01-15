@@ -23,3 +23,4 @@ HelpDeskz User Guide
     configuration/email_piping
 
 
+Last revision: January 15th, 2020
