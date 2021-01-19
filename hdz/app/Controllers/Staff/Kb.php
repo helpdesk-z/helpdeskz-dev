@@ -211,7 +211,7 @@ class Kb extends BaseController
     public function editArticle($article_id)
     {
         $kb = Services::kb();
-        if(!$article = $kb->getArticle($article_id)){
+        if(!$article = $kb->getArticle($article_id, false)){
             return redirect()->route('staff_kb_articles');
         }
         if($this->request->getPost('do') == 'submit')

@@ -38,7 +38,7 @@ class Kb
     {
         $html = '';
         $padding_article = $level*15;
-        if($articles = $this->getArticles($category_id)){
+        if($articles = $this->getArticles($category_id, false)){
             foreach ($articles as $article){
                 $html .= '<option value="'.$article->id.'">'.str_repeat('&nbsp;',$level*6).$article->title.'</option>';
             }
