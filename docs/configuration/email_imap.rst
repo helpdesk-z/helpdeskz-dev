@@ -19,4 +19,4 @@ Cron configuration
 
 .. note::
 
-    Many hosts uses the IMAP port 987 by default
+    Many hosts uses the IMAP port 993 by default
