@@ -8,7 +8,7 @@ Email configuration
 
 - In Staff Panel, go to Setup -> Email addresses.
 - Add a new email address or edit the email for Piping configuraiton.
-- Go to **Incomming** tab and select **Pipe**
+- Go to **Incoming** tab and select **Pipe**
 
 Email forwarding
 -----------------
