@@ -15,7 +15,7 @@ Cron configuration
 -----------------
 
 - Add a cron job to execute your command every minute or 5 minutes. It depends the timeframe you want to check emails.
-- Command: **/usr/local/bin/php /PATH_TO_HELPDESK/index.php mail_fetcher**
+- Command: **/usr/local/bin/php /PATH_TO_HELPDESK/index.php imap_fetcher**
 
 .. note::
 
