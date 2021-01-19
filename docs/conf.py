@@ -14,10 +14,6 @@ master_doc = 'index'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-	'sphinxcontrib.phpdomain',
-	'sphinx_rtd_theme',
-]
 
 # Add any paths that contain templates here, relative to this directory.
 # templates_path = ['_templates']
@@ -29,9 +25,6 @@ exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'trac'
-
-# The default language to highlight source code in.
-highlight_language = 'html+php'
 
 # A dictionary of options that modify how the lexer specified by
 # highlight_language generates highlighted source code.
