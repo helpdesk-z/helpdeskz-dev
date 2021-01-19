@@ -21,6 +21,7 @@ HelpDeskz User Guide
     :maxdepth: 2
 
     configuration/email_piping
+    configuration/email_imap
 
 
 Last revision: January 15th, 2020
