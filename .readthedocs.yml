@@ -6,6 +6,8 @@
 version: 2
 
 # Build documentation in the docs/ directory with Sphinx
+sphinx:
+  builder: html
 
 # Build documentation with MkDocs
 #mkdocs:
