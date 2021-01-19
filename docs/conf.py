@@ -50,8 +50,7 @@ html_theme_options = {
 	'navigation_depth': 2,
 	'includehidden': False,
 	'logo_only': True,
-	'display_version': False,
-	'style_nav_header_background': '#ffffff',
+	'display_version': False
 }
 
 html_logo = 'logo.png'
