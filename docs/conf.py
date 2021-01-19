@@ -51,5 +51,7 @@ html_theme_options = {
 	'includehidden': False,
 	'logo_only': True,
 	'display_version': False,
-	'style_nav_header_background': '#84B343',
+	'style_nav_header_background': '#ffffff',
 }
+
+html_logo = 'logo.png'
