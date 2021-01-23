@@ -117,7 +117,7 @@ class Staff
     {
         $this->update([
             'login' => time(),
-            'last_login' => $staff_data->login
+            'last_login' => ($staff_data->login == 0 ? time() : $staff_data->login)
         ], $staff_data->id);
         $this->addLoginLog($staff_data->id, true);
         $token = random_string('sha1');
