@@ -38,4 +38,8 @@ http://www.site.com/support/staff
 
 ## Email Piping
 HelpDeskZ supports email piping, this allows the auto-creation of tickets from incoming emails to a set email address.
-- To enable email piping for your help desk follow this [email piping tutorial.](https://support.helpdeskz.com/article/6-Setting-up-email-piping)
+- To enable email piping for your help desk follow this [email piping tutorial.](https://helpdeskz.com/docs/index.html#document-configuration/email_piping)
+
+## Email IMAP Fetching
+HelpDeskZ supports IMAP fetching, this allows the auto-creation of tickets from incoming emails to a set email address.
+- Read more about IMAP configuration in [IMAP Fetching Configuration.](https://helpdeskz.com/docs/index.html#document-configuration/email_imap)
