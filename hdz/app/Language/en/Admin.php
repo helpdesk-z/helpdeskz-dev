@@ -340,5 +340,23 @@ return [
         'passwordTooShort' => 'The new password must be at least 6 characters in length.',
         'selectDepartment' => 'Select a department.',
         'departmentNotExist' => 'Selected department does not exist.'
+    ],
+    'twoFactor' => [
+        'title' => 'Two-Factor Authentication',
+        'info' => 'Protect your account with high security log in.',
+        'downloadApp' => ' Download the app for android or %1%iPhone%0% and %2%iPad%0%',
+        'secretKey' => 'Secret Key',
+        'verificationCode' => 'Verification Code',
+        'enter2FA' => 'Enter the 6 digits from your mobile App.',
+        'backupCode' => 'Save this code!',
+        'activate' => 'Activate Two-Factor Authentication',
+        'deactivate' => 'Deactivate Two-Factor Authentication',
+        'activated' => 'Two-Factor authentication has been activated.',
+        'deactivated' => 'Two-Factor authentication was deactivated.',
+        'error' => [
+            'isActive' => 'Two-Factor authentication is already active.',
+            'invalidCode' => 'Invalid verification code.',
+            'invalidPassword' => 'Invalid password.'
+        ]
     ]
 ];

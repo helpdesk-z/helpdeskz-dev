@@ -109,3 +109,5 @@ ALTER TABLE `{{db_prefix}}api`
 
 ALTER TABLE `{{db_prefix}}api`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `{{db_prefix}}staff` ADD `two_factor` VARCHAR(255) NULL DEFAULT NULL AFTER `avatar`;

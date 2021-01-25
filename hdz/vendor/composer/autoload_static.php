@@ -15,6 +15,11 @@ class ComposerStaticInitb5977b783995a0e6ca406f6021cf684a
     );
 
     public static $prefixLengthsPsr4 = array (
+        'c' => 
+        array (
+            'chillerlan\\Settings\\' => 20,
+            'chillerlan\\QRCode\\' => 18,
+        ),
         'Z' => 
         array (
             'ZBateson\\StreamDecorators\\' => 26,
@@ -42,6 +47,14 @@ class ComposerStaticInitb5977b783995a0e6ca406f6021cf684a
     );
 
     public static $prefixDirsPsr4 = array (
+        'chillerlan\\Settings\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chillerlan/php-settings-container/src',
+        ),
+        'chillerlan\\QRCode\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chillerlan/php-qrcode/src',
+        ),
         'ZBateson\\StreamDecorators\\' => 
         array (
             0 => __DIR__ . '/..' . '/zbateson/stream-decorators/src',

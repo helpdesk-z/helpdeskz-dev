@@ -8,6 +8,7 @@
 namespace App\Controllers\Staff;
 
 use App\Controllers\BaseController;
+use App\Libraries\TwoFactor;
 use Config\Helpdesk;
 use Config\Services;
 
@@ -53,8 +54,31 @@ class Auth extends BaseController
             }elseif(!$data->active){
                 $error_msg = lang('Admin.login.accountLocked');
             }else{
-                $this->staff->login($data, ($this->request->getPost('remember') ? true : false));
-                return redirect()->route('staff_dashboard')->withCookies();
+                if($data->two_factor == ''){
+                    $this->staff->login($data, ($this->request->getPost('remember') ? true : false));
+                    return redirect()->route('staff_dashboard')->withCookies();
+                }else{
+                    $twoFactor = new TwoFactor();
+                    if($this->request->getPost('two_factor')){
+                        if($twoFactor->verifyCode(str_decode($data->two_factor),$this->request->getPost('two_factor'))){
+                            $this->staff->login($data, ($this->request->getPost('remember') ? true : false));
+                            return redirect()->route('staff_dashboard')->withCookies();
+                        }else{
+                            $this->staff->addLoginLog($data->id, false);
+                            $attempts = $this->staff->addLoginAttempt();
+                            $error_msg = lang('Admin.twoFactor.error.invalidCode');
+                            if ($attempts > 0) {
+                                $error_msg .= ' ' . lang_replace('Admin.login.attemptNumber', [
+                                        '%attempt1%' => $attempts,
+                                        '%attempt2%' => $this->settings->config('login_attempt')
+                                    ]);
+                            }
+                        }
+                    }
+                    return view('staff/login_two_factor',[
+                        'error_msg' => isset($error_msg) ? $error_msg : null
+                    ]);
+                }
             }
         }
         return view('staff/login',[
@@ -164,12 +188,66 @@ class Auth extends BaseController
                         return redirect()->to(current_url());
                     }
                 }
+                elseif($this->request->getPost('do') == 'update_2FA'){
+                    $twoFactor = new TwoFactor();
+                    $validation = Services::validation();
+                    if($this->request->getPost('action') == 'activate'){
+                        if($this->staff->getData('two_factor') != ''){
+                            $error_msg = lang('Admin.twoFactor.error.isActive');
+                        }else{
+                            if(!$this->session->has('twoFactorData')){
+                                $code = $twoFactor->createSecret();
+                                $data = [
+                                    'code' => $code,
+                                    'qr' => $twoFactor->getQRCodeGoogleUrl($this->settings->config('site_name'), $code)
+                                ];
+                                $this->session->set('twoFactorData', $data);
+                            }else{
+                                if($this->request->getPost('retract') == 'cancel'){
+                                    $this->session->remove('twoFactorData');
+                                }else{
+                                    $twoFactorData = $this->session->get('twoFactorData');
+                                    $validation->setRule('code', lang('Admin.twoFactor.verificationCode'),'required');
+                                    $validation->setRule('password', lang('Admin.form.password'),'required');
+                                    if(!$validation->withRequest($this->request)->run()){
+                                        $error_msg = $validation->listErrors();
+                                    }elseif(!$twoFactor->verifyCode($twoFactorData['code'], $this->request->getPost('code'))){
+                                        $error_msg = lang('Admin.error.invalid2FA');
+                                    }elseif (!password_verify($this->request->getPost('password'), $this->staff->getData('password'))){
+                                        $error_msg = lang('Admin.error.invalidPassword');
+                                    }else{
+                                        $this->staff->update(['two_factor' => str_encode($twoFactorData['code'])], $this->staff->getData('id'));
+                                        $this->session->remove('twoFactorData');
+                                        $this->session->setFlashdata('form_success', lang('Admin.twoFactor.activated'));
+                                        return redirect()->to(current_url());
+                                    }
+                                }
+                            }
+                        }
+                    }elseif ($this->request->getPost('action') == 'deactivate'){
+                        $validation->setRule('code', lang('Admin.twoFactor.verificationCode'),'required');
+                        $validation->setRule('password', lang('Admin.form.password'),'required');
+                        if(!$validation->withRequest($this->request)->run()){
+                            $error_msg = $validation->listErrors();
+                        }elseif(!$twoFactor->verifyCode(str_decode($this->staff->getData('two_factor')), $this->request->getPost('code'))){
+                            $error_msg = lang('Admin.twoFactor.error.invalidCode');
+                        }elseif (!password_verify($this->request->getPost('password'), $this->staff->getData('password'))){
+                            $error_msg = lang('Admin.twoFactor.invalidPassword');
+                        }else{
+                            $this->staff->update(['two_factor' => ''], $this->staff->getData('id'));
+                            $this->session->remove('twoFactorData');
+                            $this->session->setFlashdata('form_success', lang('Admin.twoFactor.deactivated'));
+                            return redirect()->to(current_url());
+                        }
+                    }
+                }
             }
         }
 
         return view('staff/profile',[
             'error_msg' => isset($error_msg) ? $error_msg : null,
-            'success_msg' => $this->session->has('form_success') ? $this->session->getFlashdata('form_success') : null
+            'success_msg' => $this->session->has('form_success') ? $this->session->getFlashdata('form_success') : null,
+            'twoFactorData' => $this->session->has('twoFactorData') ? $this->session->get('twoFactorData'): null
         ]);
     }
 }

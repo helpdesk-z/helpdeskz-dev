@@ -261,7 +261,39 @@ function parseCustomFieldsForm($customField)
     return $customFields->parseForm($customField);
 }
 
-function mail_piping()
+/*
+ * -----------------------------------------
+ * Encode/Decode data
+ * -----------------------------------------
+ */
+function str_encode($str)
 {
-    return \Config\Services::mailFetcher()->pipe();
+    if($str == ''){
+        return '';
+    }else{
+        $ascii = strrev(base64_encode(strrev($str)));
+        $hex = '';
+        for ($i = 0; $i < strlen($ascii); $i++) {
+            $byte = strtoupper(dechex(ord($ascii{$i})));
+            $byte = str_repeat('0', 2 - strlen($byte)).$byte;
+            $hex.=$byte;
+        }
+        return $hex;
+    }
+}
+
+function str_decode($str)
+{
+    if($str == ''){
+        return '';
+    }else{
+        $hex = $str;
+        $ascii='';
+        $hex=str_replace(" ", "", $hex);
+        for($i=0; $i<strlen($hex); $i=$i+2) {
+            $ascii.=chr(hexdec(substr($hex, $i, 2)));
+        }
+        return strrev(base64_decode(strrev($ascii)));
+
+    }
 }

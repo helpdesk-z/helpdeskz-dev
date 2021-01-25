@@ -178,6 +178,7 @@ CREATE TABLE `{{db_prefix}}staff` (
   `timezone` varchar(255) DEFAULT NULL,
   `signature` longtext,
   `avatar` varchar(200) DEFAULT NULL,
+  `two_factor` varchar(255) DEFAULT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   `active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
