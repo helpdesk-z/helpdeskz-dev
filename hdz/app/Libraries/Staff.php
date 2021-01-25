@@ -125,19 +125,20 @@ class Staff
         $this->create_session($staff_data->id, $staff_data->password, $token, $remember);
     }
 
-    public function isLocked()
+    public function isLocked($ip_address=null)
     {
         //Delete logs
         $settings = Services::settings();
         $request = Services::request();
         $db = Database::connect();
+        $ip_address = is_null($ip_address) ? $request->getIPAddress() : $ip_address;
         $builder = $db->table('login_attempt');
         $builder->delete([
                 'date<' => time()-(60*$settings->config('login_attempt_minutes'))
             ]);
         //Verify
         $q = $builder->select('attempts, date')
-            ->where('ip', $request->getIPAddress())
+            ->where('ip', $ip_address)
             ->get(1);
         if($q->resultID->num_rows == 0){
             return false;
@@ -149,7 +150,7 @@ class Staff
         return false;
     }
 
-    public function addLoginAttempt()
+    public function addLoginAttempt($ip_address=null)
     {
         $settings = Services::settings();
         if($settings->config('login_attempt') == 0){
@@ -158,11 +159,12 @@ class Staff
         $request = Services::request();
         $db = Database::connect();
         $builder = $db->table('login_attempt');
-        $q = $builder->where('ip', $request->getIPAddress())
+        $ip_address = (!is_null($ip_address) ? $ip_address : $request->getIPAddress());
+        $q = $builder->where('ip', $ip_address)
             ->get(1);
         if($q->resultID->num_rows == 0){
             $builder->insert([
-                'ip' => $request->getIPAddress(),
+                'ip' => $ip_address,
                 'attempts' => 1,
                 'date' => time()
             ]);
@@ -176,13 +178,15 @@ class Staff
         return ($result->attempts+1);
     }
 
-    public function addLoginLog($staff_id, $success=false)
+    public function addLoginLog($staff_id, $success=false, $ip_address=null)
     {
         $request = Services::request();
         $db = Database::connect();
+        $user_agent = (!is_null($ip_address) ? 'HelpDeskZ API' : $request->getUserAgent());
+        $ip_address = (!is_null($ip_address) ? $ip_address : $request->getIPAddress());
         if($success){
             $builder = $db->table('login_attempt');
-            $builder->where('ip', $request->getIPAddress())
+            $builder->where('ip', $ip_address)
                 ->delete();
         }
 
@@ -190,8 +194,8 @@ class Staff
         $builder->insert([
             'date' => time(),
             'staff_id' => $staff_id,
-            'ip' => $request->getIPAddress(),
-            'agent' => $request->getUserAgent(),
+            'ip' => $ip_address,
+            'agent' => $user_agent,
             'success' => $success
         ]);
     }

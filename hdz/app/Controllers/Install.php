@@ -384,6 +384,8 @@ class Install extends BaseController
                     'imap_password' => '',
                     'imap_minutes' => 5
                 ]);
+        }else{
+            $this->importDBFile('upgrade_'.$this->current_version.'.sql');
         }
         return true;
     }

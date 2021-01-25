@@ -125,6 +125,7 @@
                                 <a class="dropdown-item <?php echo strpos(uri_string(), 'setup/kb') !== false ? 'active' : '';?>" href="<?php echo site_url(route_to('staff_kb_settings'));?>"><?php echo lang('Admin.settings.kb');?></a>
                                 <a class="dropdown-item <?php echo strpos(uri_string(), 'setup/email-templates') !== false ? 'active' : '';?>" href="<?php echo site_url(route_to('staff_email_templates'));?>"><?php echo lang('Admin.settings.emailTemplates');?></a>
                                 <a class="dropdown-item <?php echo strpos(uri_string(), 'setup/email-addresses') !== false ? 'active' : '';?>" href="<?php echo site_url(route_to('staff_emails'));?>"><?php echo lang('Admin.settings.emailAddresses');?></a>
+                                <a class="dropdown-item <?php echo strpos(uri_string(), 'setup/api') !== false ? 'active' : '';?>" href="<?php echo site_url(route_to('staff_api'));?>"><?php echo lang('Api.configuration');?></a>
                             </div>
                         </li>
                     <?php

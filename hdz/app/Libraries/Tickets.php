@@ -333,6 +333,7 @@ class Tickets
 
     public function staffNotification($ticket)
     {
+        return false;
         $emails = new Emails();
         $staffModel = new \App\Models\Staff();
         //Send Mail to staff
@@ -395,11 +396,12 @@ class Tickets
         }
         return $q->getRow();
     }
-    public function getMessages($ticket_id)
+    public function getMessages($ticket_id, $select='*')
     {
         $settings = Services::settings();
         $per_page = $settings->config('tickets_replies');
-        $result = $this->messagesModel->where('ticket_id', $ticket_id)
+        $result = $this->messagesModel->select($select)
+            ->where('ticket_id', $ticket_id)
             ->orderBy('date', $settings->config('reply_order'))
             ->paginate($per_page, 'default');
 
@@ -754,5 +756,12 @@ class Tickets
             return true;
         }
         return false;
+    }
+
+    public function purifyHTML($message)
+    {
+        $config = \HTMLPurifier_Config::createDefault();
+        $purifier = new \HTMLPurifier($config);
+        return $purifier->purify($message);
     }
 }

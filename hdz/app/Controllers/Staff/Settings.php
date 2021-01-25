@@ -487,4 +487,129 @@ class Settings extends BaseController
         ]);
     }
 
+    /*
+     * -----------------------------------------
+     * API Configuraiton
+     * -----------------------------------------
+     */
+
+    public function api()
+    {
+        if($this->staff->getData('admin') != 1){
+            return redirect()->route('staff_dashboard');
+        }
+        $api = Services::api();
+
+        if ($this->request->getPost('do') == 'remove'){
+            $validation = Services::validation();
+            $validation->setRule('api_id', 'api_id','required|is_natural_no_zero');
+            if($validation->withRequest($this->request)->run() == false){
+                $error_msg = lang('Api.error.invalidID');
+            }else{
+                $api->delete($this->request->getPost('api_id'));
+                $this->session->setFlashdata('form_success',lang('Api.apiRemoved'));
+                return redirect()->to(current_url());
+            }
+        }
+
+        return view('staff/api',[
+            'error_msg' => isset($error_msg) ? $error_msg : null,
+            'success_msg' => $this->session->has('form_success') ? $this->session->getFlashdata('form_success') : null,
+            'api_list' => $api->getList(),
+        ]);
+    }
+
+    public function apiCreate()
+    {
+        if($this->staff->getData('admin') != 1){
+            return redirect()->route('staff_dashboard');
+        }
+
+
+        $api = Services::api();
+        if($this->request->getPost('do') == 'submit')
+        {
+            $validation = Services::validation();
+            $validation->setRule('name','name','required',[
+                'required' => lang('Api.error.apiName')
+            ]);
+            $validation->setRule('active','active', 'required|in_list[0,1]',[
+                'required' => lang('Api.error.invalidStatus.'),
+                'in_list' => lang('Api.error.invalidStatus.')
+            ]);
+            if($validation->withRequest($this->request)->run() == false){
+                $error_msg = $validation->listErrors();
+            }else{
+                $permissions = array();
+                foreach ($api->permissionList() as $item => $data)
+                {
+                    foreach ($data['options'] as $key => $v){
+                        if(isset($this->request->getPost($item)[$key])){
+                            $permissions[$item][$key] = 1;
+                        }
+                    }
+                }
+                $api_id = $api->create($this->request->getPost('name'), $permissions, $this->request->getPost('active'));
+                $this->session->setFlashdata('form_success',lang('Api.successCreation'));
+                return redirect()->route('staff_api_edit',[$api_id]);
+
+            }
+        }
+        return view('staff/api_form',[
+            'error_msg' => isset($error_msg) ? $error_msg : null,
+            'success_msg' => $this->session->has('form_success') ? $this->session->getFlashdata('form_success') : null,
+            'api_permissions' => $api->permissionList(),
+        ]);
+    }
+
+    public function apiEdit($api_id)
+    {
+        if($this->staff->getData('admin') != 1){
+            return redirect()->route('staff_dashboard');
+        }
+        $api = Services::api();
+        if(!$api_info = $api->getRow(['id'=>$api_id])){
+            return redirect()->route('staff_api');
+        }
+
+        if($this->request->getPost('do') == 'submit')
+        {
+            $validation = Services::validation();
+            $validation->setRule('name','name','required',[
+                'required' => lang('Api.error.apiName')
+            ]);
+            $validation->setRule('active','active', 'required|in_list[0,1]',[
+                'required' => lang('Api.error.invalidStatus.'),
+                'in_list' => lang('Api.error.invalidStatus.')
+            ]);
+            if($validation->withRequest($this->request)->run() == false){
+                $error_msg = $validation->listErrors();
+            }else{
+                $permissions = array();
+                foreach ($api->permissionList() as $item => $data)
+                {
+                    foreach ($data['options'] as $key => $v){
+                        if(isset($this->request->getPost($item)[$key])){
+                            $permissions[$item][$key] = 1;
+                        }
+                    }
+                }
+                $api->update([
+                    'name' => esc($this->request->getPost('name')),
+                    'permissions' => serialize($permissions),
+                    'active' => $this->request->getPost('active')
+                ], $api_info->id);
+                $this->session->setFlashdata('form_success',lang('Api.successUpdate'));
+                return redirect()->to(current_url());
+
+            }
+        }
+
+        return view('staff/api_form',[
+            'error_msg' => isset($error_msg) ? $error_msg : null,
+            'success_msg' => $this->session->has('form_success') ? $this->session->getFlashdata('form_success') : null,
+            'api_permissions' => $api->permissionList(),
+            'api_info' => $api_info
+        ]);
+    }
 }

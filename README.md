@@ -1,6 +1,6 @@
 ![](/assets/helpdeskz/images/logo.png)
 
-Version: 2.0 from January 14th, 2021<br>
+Version: 2.0.1 from January 25th, 2021<br>
 Developed by: Andres Mendoza<br>
 [Help Desk Software HelpDeskZ](https://www.helpdeskz.com)
 

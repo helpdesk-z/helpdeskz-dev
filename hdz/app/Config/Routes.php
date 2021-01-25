@@ -235,6 +235,15 @@ $routes->group(Helpdesk::STAFF_URI, [
     $routes->add('setup/email-addresses/edit/(:num)', 'Staff\Settings::emailsEdit/$1',[
         'as' => 'staff_emails_edit'
     ]);
+    $routes->add('setup/api', 'Staff\Settings::api',[
+        'as' => 'staff_api'
+    ]);
+    $routes->add('setup/api/new', 'Staff\Settings::apiCreate',[
+        'as' => 'staff_api_new'
+    ]);
+    $routes->add('setup/api/edit/(:num)', 'Staff\Settings::apiEdit/$1',[
+        'as' => 'staff_api_edit'
+    ]);
     $routes->add('account/log-out','Staff\Auth::logout',[
         'as' => 'staff_logout'
     ]);
@@ -247,10 +256,19 @@ $routes->group(Helpdesk::STAFF_URI, [
     $routes->add('tools/custom-fields/new','Staff\Tools::customFieldsCreate',[
         'as' => 'staff_new_custom_field'
     ]);
-    $routes->add('toolscustom-fields/edit/(:num)', 'Staff\Tools::customFieldsEdit/$1',[
+    $routes->add('tools/custom-fields/edit/(:num)', 'Staff\Tools::customFieldsEdit/$1',[
         'as' => 'staff_edit_custom_field'
     ]);
 });
+
+//API
+$routes->presenter('api/users', ['controller' => 'Api\Users','filter'=>'apiAuth']);
+$routes->presenter('api/departments', ['controller' => 'Api\Departments','filter'=>'apiAuth']);
+$routes->presenter('api/tickets', ['controller' => 'Api\Tickets', 'filter'=>'apiAuth']);
+$routes->presenter('api/messages', ['controller' => 'Api\Messages','filter'=>'apiAuth']);
+$routes->presenter('api/attachments', ['controller' => 'Api\Attachments','filter'=>'apiAuth']);
+$routes->presenter('api/staff', ['controller' => 'Api\Staff','filter'=>'apiAuth']);
+$routes->post('api/staff/auth', 'Api\Staff::auth',['filter' => 'apiAuth']);
 /**
  * --------------------------------------------------------------------
  * Additional Routing

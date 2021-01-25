@@ -1,5 +1,6 @@
 <?php namespace Config;
 
+use App\Filters\ApiAuth;
 use App\Filters\StaffAuth;
 use App\Filters\UserAuth;
 use CodeIgniter\Config\BaseConfig;
@@ -13,14 +14,20 @@ class Filters extends BaseConfig
 		'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
         'userAuth' => UserAuth::class,
-        'staffAuth' => StaffAuth::class
+        'staffAuth' => StaffAuth::class,
+        'apiAuth' => ApiAuth::class
 	];
 
 	// Always applied before every request
 	public $globals = [
 		'before' => [
 			//'honeypot'
-			'csrf',
+			'csrf' => [
+			    'except' => [
+			        'api/[a-z]+/[a-z]+',
+                    'api/[a-z]+/[a-z]+/[0-9]+',
+                ]
+            ],
 		],
 		'after'  => [
 			//'toolbar',

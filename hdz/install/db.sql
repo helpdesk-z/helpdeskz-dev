@@ -1,3 +1,15 @@
+DROP TABLE IF EXISTS `{{db_prefix}}api`;
+CREATE TABLE `{{db_prefix}}api` (
+  `id` int NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `date` int NOT NULL DEFAULT '0',
+  `last_update` int NOT NULL,
+  `permissions` text,
+  `ip_address` mediumtext,
+  `active` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS `{{db_prefix}}articles`;
 CREATE TABLE `{{db_prefix}}articles` (
   `id` int NOT NULL,
@@ -211,6 +223,9 @@ CREATE TABLE `{{db_prefix}}users` (
   `status` int NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE `{{db_prefix}}api`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `token` (`token`);
 
 ALTER TABLE `{{db_prefix}}articles`
   ADD PRIMARY KEY (`id`),
@@ -267,6 +282,8 @@ ALTER TABLE `{{db_prefix}}users`
   ADD PRIMARY KEY (`id`),
   ADD KEY `email` (`email`);
 
+ALTER TABLE `{{db_prefix}}api`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `{{db_prefix}}articles`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;

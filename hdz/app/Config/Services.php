@@ -1,5 +1,6 @@
 <?php namespace Config;
 
+use App\Libraries\Api;
 use App\Libraries\Attachments;
 use App\Libraries\Client;
 use App\Libraries\Departments;
@@ -79,6 +80,14 @@ class Services extends CoreServices
         }
         return new Tickets();
     }
+
+    public static function api($getShared = true)
+    {
+        if($getShared){
+            return static::getSharedInstance('api');
+        }
+        return new Api();
+    }
 	//    public static function example($getShared = true)
 	//    {
 	//        if ($getShared)
@@ -88,4 +97,6 @@ class Services extends CoreServices
 	//
 	//        return new \CodeIgniter\Example();
 	//    }
+
+
 }
