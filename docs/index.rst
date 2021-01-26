@@ -26,7 +26,7 @@ HelpDeskz User Guide
 .. toctree::
     :maxdepth: 2
 
-    api_doc
+    api/index
 
 
 Last revision: January 25th, 2021
