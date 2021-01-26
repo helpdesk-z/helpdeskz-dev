@@ -142,7 +142,7 @@ Retrieve a list of all users
 Retrieve details of user by ID
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. http:get:: /api/users/show/<id>
+.. http:get:: /api/users/show/<user_id>
 
     **Example request**:
 
@@ -164,7 +164,7 @@ Retrieve details of user by ID
                 <?php
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/users/show/<id>',
+                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/users/show/1',
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_CUSTOMREQUEST => 'GET',
                   CURLOPT_HTTPHEADER => array(
@@ -234,4 +234,49 @@ Update user account
         {
             "success": 1,
             "message": "Email was changed."
+        }
+
+Delete user account
+~~~~~~~~~~~~~~~~~~~
+
+.. http:post:: /api/users/delete/<user_id>
+
+    **Example request**:
+
+    .. content-tabs::
+
+        .. tab-container:: tab1
+            :title: cURL
+
+            .. sourcecode:: bash
+
+                curl \
+                -X POST \
+                -H 'Token: <token>' https://demo.helpdeskz.com/api/users/delete/1
+
+        .. tab-container:: tab2
+            :title: PHP
+
+            .. sourcecode:: php
+
+                <?php
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/users/delete/1',
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_CUSTOMREQUEST => 'POST',
+                  CURLOPT_HTTPHEADER => array(
+                    'Token: <token>'
+                  ),
+                ));
+                $response = curl_exec($curl);
+                curl_close($curl);
+
+    **Example response**:
+
+    .. sourcecode:: json
+
+        {
+            "success": 1,
+            "message": "Account was removed."
         }
