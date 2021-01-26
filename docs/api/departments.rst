@@ -1,14 +1,13 @@
-Users
-=====
+Departments
+===========
 
-Create a new user
------------------
+Create a new department
+-----------------------
 
-.. http:post:: /api/users/create
+.. http:post:: /api/departments/create
 
-    :query string fullname: Client's Full Name
-    :query string email: Client's Email address
-    :query boolean notify: 1 = Client will receive an email with login information
+    :query string name: Department name
+    :query boolean private: 0=public department, 1=private department
 
     **Example request**:
 
@@ -21,10 +20,9 @@ Create a new user
 
                 curl \
                 -X POST \
-                -H 'Token: <token>' https://demo.helpdeskz.com/api/users/ \
-                -F 'fullname="John Doe"' \
-                -F 'email="john.doe@demo.com"' \
-                -F 'notify="0"'
+                -H 'Token: <token>' https://demo.helpdeskz.com/api/departments/create/ \
+                -F 'name="Bug report"' \
+                -F 'private="0"'
 
         .. tab-container:: tab2
             :title: PHP
@@ -34,10 +32,10 @@ Create a new user
                 <?php
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                  CURLOPT_URL => 'http://helpdeskz.web/api/users/create',
+                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/departments/create/',
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_CUSTOMREQUEST => 'POST',
-                  CURLOPT_POSTFIELDS => array('fullname' => 'John Doe','email' => 'john.doe@demo.com','notify' => '1'),
+                  CURLOPT_POSTFIELDS => array('name' => 'Bug report','private' => '0'),
                   CURLOPT_HTTPHEADER => array(
                     'Token: <token>'
                   ),
@@ -51,17 +49,14 @@ Create a new user
 
         {
             "success": 1,
-            "user_id": 1,
-            "message": "User account was created."
+            "department_id": 4,
+            "message": "Department was created."
         }
 
-Retrieve a list of all users
-----------------------------
+Retrieve a list of all departments
+-----------------------------------
 
-.. http:get:: /api/users/
-
-    :query string email: Find a client by email
-    :query numeric page: Page query is used to view next page
+.. http:get:: /api/departments/
 
     **Example request**:
 
@@ -73,7 +68,7 @@ Retrieve a list of all users
             .. sourcecode:: bash
 
                 curl \
-                -H 'Token: <token>' https://demo.helpdeskz.com/api/users
+                -H 'Token: <token>' https://demo.helpdeskz.com/api/departments
 
         .. tab-container:: tab2
             :title: PHP
@@ -83,7 +78,7 @@ Retrieve a list of all users
                 <?php
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/users',
+                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/departments',
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_CUSTOMREQUEST => 'GET',
                   CURLOPT_HTTPHEADER => array(
@@ -99,26 +94,34 @@ Retrieve a list of all users
 
         {
             "success": 1,
-            "total_users": 2,
-            "total_pages": 1,
-            "users": [
-                {
-                    "id": "2",
-                    "fullname": "John Doe",
-                    "email": "john.doe@demo.com"
-                },
+            "departments": [
                 {
                     "id": "1",
-                    "fullname": "John Doe",
-                    "email": "john.doe123@demo.com"
+                    "name": "General",
+                    "private": "0"
+                },
+                {
+                    "id": "2",
+                    "name": "Advertising",
+                    "private": "0"
+                },
+                {
+                    "id": "3",
+                    "name": "Sales",
+                    "private": "0"
+                },
+                {
+                    "id": "4",
+                    "name": "Bug report",
+                    "private": "0"
                 }
             ]
         }
 
-Retrieve details of user by ID
--------------------------------
+Retrieve details of department by ID
+------------------------------------
 
-.. http:get:: /api/users/show/<user_id>
+.. http:get:: /api/departments/show/<user_id>
 
     **Example request**:
 
@@ -130,7 +133,7 @@ Retrieve details of user by ID
             .. sourcecode:: bash
 
                 curl \
-                -H 'Token: <token>' https://demo.helpdeskz.com/api/users/show/1
+                -H 'Token: <token>' https://demo.helpdeskz.com/api/departments/show/4
 
         .. tab-container:: tab2
             :title: PHP
@@ -140,7 +143,7 @@ Retrieve details of user by ID
                 <?php
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/users/show/1',
+                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/departments/show/4',
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_CUSTOMREQUEST => 'GET',
                   CURLOPT_HTTPHEADER => array(
@@ -156,19 +159,20 @@ Retrieve details of user by ID
 
         {
             "success": 1,
-            "user_data": {
-                "id": "1",
-                "fullname": "John Doe",
-                "email": "john.doe@demo.com"
+            "department": {
+                "id": "4",
+                "name": "Bug report",
+                "private": "0"
             }
         }
 
-Update user account
---------------------
+Update department
+------------------
 
-.. http:post:: /api/users/update/<user_id>
+.. http:post:: /api/departments/update/<department_id>
 
-    :query string new_email: New client's email address
+    :query string name: New department name
+    :query boolean private: 0=public department, 1=private department
 
     **Example request**:
 
@@ -181,8 +185,9 @@ Update user account
 
                 curl \
                 -X POST \
-                -H 'Token: <token>' https://demo.helpdeskz.com/api/users/update/1 \
-                -F 'new_email="john.doe123@demo.com"'
+                -H 'Token: <token>' https://demo.helpdeskz.com/api/departments/update/4 \
+                -F 'name="Issues report"'
+                -F 'private="0"'
 
         .. tab-container:: tab2
             :title: PHP
@@ -192,10 +197,10 @@ Update user account
                 <?php
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/users/update/1',
+                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/departments/update/1',
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_CUSTOMREQUEST => 'POST',
-                  CURLOPT_POSTFIELDS => array('new_email' => 'john.doe123@demo.com'),
+                  CURLOPT_POSTFIELDS => array('name' => 'Issues report', 'private' => '0'),
                   CURLOPT_HTTPHEADER => array(
                     'Token: <token>'
                   ),
@@ -209,13 +214,13 @@ Update user account
 
         {
             "success": 1,
-            "message": "Email was changed."
+            "message": "Department was updated."
         }
 
-Delete user account
---------------------
+Delete department
+------------------
 
-.. http:post:: /api/users/delete/<user_id>
+.. http:post:: /api/departments/delete/<department_id>
 
     **Example request**:
 
@@ -228,7 +233,7 @@ Delete user account
 
                 curl \
                 -X POST \
-                -H 'Token: <token>' https://demo.helpdeskz.com/api/users/delete/1
+                -H 'Token: <token>' https://demo.helpdeskz.com/api/departments/delete/4
 
         .. tab-container:: tab2
             :title: PHP
@@ -238,7 +243,7 @@ Delete user account
                 <?php
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/users/delete/1',
+                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/departments/delete/4',
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_CUSTOMREQUEST => 'POST',
                   CURLOPT_HTTPHEADER => array(
@@ -254,5 +259,10 @@ Delete user account
 
         {
             "success": 1,
-            "message": "Account was removed."
+            "message": "Department and its tickets were removed."
         }
+
+
+    .. note::
+
+       With this action, all tickets from this department will be removed.
