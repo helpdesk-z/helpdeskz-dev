@@ -24,9 +24,11 @@ HelpDeskz User Guide
     configuration/email_imap
 
 .. toctree::
+    :caption: API
     :maxdepth: 2
 
     api/index
+    api/api_doc
 
 
 Last revision: January 25th, 2021
