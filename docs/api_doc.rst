@@ -154,7 +154,7 @@ Retrieve details of user by ID
             .. sourcecode:: bash
 
                 curl \
-                -H 'Token: <token>' https://demo.helpdeskz.com/api/users/show/<id>
+                -H 'Token: <token>' https://demo.helpdeskz.com/api/users/show/1
 
         .. tab-container:: tab2
             :title: PHP
@@ -185,4 +185,53 @@ Retrieve details of user by ID
                 "fullname": "John Doe",
                 "email": "john.doe@demo.com"
             }
+        }
+
+Update user account
+~~~~~~~~~~~~~~~~~~~
+
+.. http:post:: /api/users/update/<user_id>
+
+    :query string new_email: New client's email address
+
+    **Example request**:
+
+    .. content-tabs::
+
+        .. tab-container:: tab1
+            :title: cURL
+
+            .. sourcecode:: bash
+
+                curl \
+                -X POST \
+                -H 'Token: <token>' https://demo.helpdeskz.com/api/users/update/1 \
+                -F 'new_email="john.doe123@demo.com"'
+
+        .. tab-container:: tab2
+            :title: PHP
+
+            .. sourcecode:: php
+
+                <?php
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/users/update/1',
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_CUSTOMREQUEST => 'POST',
+                  CURLOPT_POSTFIELDS => array('new_email' => 'john.doe123@demo.com'),
+                  CURLOPT_HTTPHEADER => array(
+                    'Token: <token>'
+                  ),
+                ));
+                $response = curl_exec($curl);
+                curl_close($curl);
+
+    **Example response**:
+
+    .. sourcecode:: json
+
+        {
+            "success": 1,
+            "message": "Email was changed."
         }
