@@ -6,9 +6,8 @@ extensions = [
     'sphinx.ext.autosectionlabel',
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
-    'sphinx.ext.httpdomain',
+    'httpdomain',
     'sphinx.ext.tabs'
-
 ]
 
 project = 'HelpDeskZ'
