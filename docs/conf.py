@@ -4,7 +4,7 @@ import sys
 sys.path.append(os.path.abspath('_ext'))
 extensions = [
     'httpdomain',
-    'sphinx_tabs.tabs',
+    'tabs',
 ]
 
 project = 'HelpDeskZ'
