@@ -28,7 +28,7 @@ HelpDeskz User Guide
     :maxdepth: 2
 
     api/index
-    api/api_doc
+    api/users
 
 
 Last revision: January 25th, 2021
