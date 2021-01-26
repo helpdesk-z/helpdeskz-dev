@@ -1,8 +1,8 @@
-Departments
-===========
+Support Tickets
+===============
 
-Create a new department
------------------------
+Create a new ticket
+--------------------
 
 .. http:post:: /api/tickets/create
 
