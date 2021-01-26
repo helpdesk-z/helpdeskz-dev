@@ -79,10 +79,12 @@ Create a new user
             "message": "User account was created."
         }
 
+Retrieve a list of all users
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. http:get:: /api/users/
 
-    Retrieve a list of all users.
+    :query numeric page: Page query is used to view next page
 
     **Example request**:
 
@@ -94,7 +96,7 @@ Create a new user
             .. sourcecode:: bash
 
                 curl \
-                -H 'Token: <token>' https://demo.helpdeskz.com/api/users
+                -H 'Token: <token>' https://demo.helpdeskz.com/api/users?page=1
 
         .. tab-container:: tab2
             :title: PHP
