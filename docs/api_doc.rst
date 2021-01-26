@@ -35,6 +35,7 @@ Users list
     **Example request**:
 
     .. code-block:: php
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
           CURLOPT_URL => 'http://helpdeskz.web/api/users',
@@ -55,6 +56,7 @@ Users list
     **Example response**:
 
     .. code-block:: json
+
         {
             "success": 1,
             "total_users": 2,
