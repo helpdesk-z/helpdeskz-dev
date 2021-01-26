@@ -43,10 +43,40 @@ Users list
 
                 curl \
                 -X POST \
-                -H 'Token: <token>' https://demo.helpdeskz.com/api/users
+                -H 'Token: <token>' https://demo.helpdeskz.com/api/users/ \
                 -F 'fullname="John Doe"' \
                 -F 'email="john.doe@demo.com"' \
                 -F 'notify="0"'
+
+        .. tab-container:: tab2
+            :title: PHP
+
+            .. sourcecode:: php
+
+                <?php
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => 'http://helpdeskz.web/api/users/create',
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_CUSTOMREQUEST => 'POST',
+                  CURLOPT_POSTFIELDS => array('fullname' => 'John Doe','email' => 'john.doe@demo.com','notify' => '1'),
+                  CURLOPT_HTTPHEADER => array(
+                    'Token: QYXTgwMGO7WRKU1f2BDpbAFrdmyjz4eJkZ8CoVls3IahqLS5tn6PciNExHvu'
+                  ),
+                ));
+                $response = curl_exec($curl);
+                curl_close($curl);
+
+    **Example response**:
+
+    .. sourcecode::json
+
+        {
+            "success": 1,
+            "user_id": 1,
+            "message": "User account was created."
+        }
+
 
 .. http:get:: /api/users/
 
