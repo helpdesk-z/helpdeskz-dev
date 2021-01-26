@@ -4,7 +4,7 @@ Upgrading from 2.0 to 2.0.1
 The upgrade process is very simple and just upload these files:
 
 - /index.php
-- /hdz/*.*
+- /hdz/\*.\*
 
 
 Update your site
