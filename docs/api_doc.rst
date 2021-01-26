@@ -28,6 +28,26 @@ Users
 Users list
 +++++++++++
 
+.. http:post:: /api/users/create
+
+    Create a new user
+
+    **Example request**:
+
+    .. content-tabs::
+
+        .. tab-container:: tab1
+            :title: cURL
+
+            .. sourcecode:: bash
+
+                curl \
+                -X POST \
+                -H 'Token: <token>' https://demo.helpdeskz.com/api/users
+                -F 'fullname="John Doe"' \
+                -F 'email="john.doe@demo.com"' \
+                -F 'notify="0"'
+
 .. http:get:: /api/users/
 
     Retrieve a list of all users.
@@ -54,11 +74,6 @@ Users list
                 curl_setopt_array($curl, array(
                   CURLOPT_URL => 'https://demo.helpdeskz.com/api/users',
                   CURLOPT_RETURNTRANSFER => true,
-                  CURLOPT_ENCODING => '',
-                  CURLOPT_MAXREDIRS => 10,
-                  CURLOPT_TIMEOUT => 0,
-                  CURLOPT_FOLLOWLOCATION => true,
-                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                   CURLOPT_CUSTOMREQUEST => 'GET',
                   CURLOPT_HTTPHEADER => array(
                     'Token: <token>'
