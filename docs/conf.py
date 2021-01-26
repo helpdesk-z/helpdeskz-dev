@@ -1,27 +1,3 @@
-import os
-import sys
-from configparser import RawConfigParser
-
-import sphinx_rtd_theme
-
-sys.path.insert(0, os.path.abspath('..'))
-sys.path.append(os.path.dirname(__file__))
-
-from django.conf import settings
-from django.utils import timezone
-
-import django
-django.setup()
-
-
-def get_version():
-    """Return package version from setup.cfg."""
-    config = RawConfigParser()
-    config.read(os.path.join('..', 'setup.cfg'))
-    return config.get('metadata', 'version')
-
-
-sys.path.append(os.path.abspath('_ext'))
 extensions = [
     'sphinx.ext.autosectionlabel',
     'sphinx.ext.autodoc',
