@@ -25,12 +25,10 @@ The ``Authorization`` HTTP header can be specified with ``Token: <your-access-to
 Users
 ------
 
-Users list
-+++++++++++
+Create a new user
+~~~~~~~~~~~~~~~~
 
 .. http:post:: /api/users/create
-
-    Create a new user
 
     :query string fullname: Client's Full Name
     :query string email: Client's Email address
