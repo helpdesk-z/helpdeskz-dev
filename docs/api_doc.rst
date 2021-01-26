@@ -41,7 +41,8 @@ Users list
 
             .. sourcecode:: bash
 
-                curl -H "Token: <token>" http://helpdeskz.web/api/users
+                curl --location --request GET 'https://demo.helpdeskz.com/api/users' \
+                --header 'Token: <token>'
 
         .. tab-container:: tab2
             :title: PHP
@@ -51,7 +52,7 @@ Users list
                 <?php
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                  CURLOPT_URL => 'http://helpdeskz.web/api/users',
+                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/users',
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_ENCODING => '',
                   CURLOPT_MAXREDIRS => 10,
