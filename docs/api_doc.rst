@@ -41,8 +41,7 @@ Users list
 
             .. sourcecode:: bash
 
-            $ curl --location --request GET 'http://helpdeskz.web/api/users'
-            --header 'Token: <token>'
+            $ curl --location --request GET 'http://helpdeskz.web/api/users' --header 'Token: <token>'
 
         .. tab-container:: tab2
             :title: PHP
