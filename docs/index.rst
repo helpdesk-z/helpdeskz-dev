@@ -24,7 +24,6 @@ HelpDeskz User Guide
     configuration/email_imap
 
 .. toctree::
-    :caption: API
     :maxdepth: 2
 
     api_doc
