@@ -69,7 +69,7 @@ Users list
 
     **Example response**:
 
-    .. sourcecode::json
+    .. sourcecode:: json
 
         {
             "success": 1,
