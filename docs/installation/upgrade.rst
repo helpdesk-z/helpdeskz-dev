@@ -7,3 +7,4 @@ Please read the upgrade notes corresponding to the version you are upgrading fro
     :maxdepth: 2
 
     upgrade_2x
+    upgrade_200_201
