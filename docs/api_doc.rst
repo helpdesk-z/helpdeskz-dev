@@ -39,25 +39,10 @@ Users list
         .. tab-container:: tab1
             :title: CURL
 
-            .. sourcecode:: php
+            .. sourcecode:: curl
 
-                <?php
-                $curl = curl_init();
-                curl_setopt_array($curl, array(
-                  CURLOPT_URL => 'http://helpdeskz.web/api/users',
-                  CURLOPT_RETURNTRANSFER => true,
-                  CURLOPT_ENCODING => '',
-                  CURLOPT_MAXREDIRS => 10,
-                  CURLOPT_TIMEOUT => 0,
-                  CURLOPT_FOLLOWLOCATION => true,
-                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                  CURLOPT_CUSTOMREQUEST => 'GET',
-                  CURLOPT_HTTPHEADER => array(
-                    'Token: <token>'
-                  ),
-                ));
-                $response = curl_exec($curl);
-                curl_close($curl);
+            curl --location --request GET 'http://helpdeskz.web/api/users' \
+            --header 'Token: <token>'
 
         .. tab-container:: tab2
             :title: PHP
