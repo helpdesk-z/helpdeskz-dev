@@ -62,7 +62,7 @@ Users list
 
     **Example response**:
 
-    .. sourcecode:: json
+    .. code-block:: json
         {
             "success": 1,
             "total_users": 2,
