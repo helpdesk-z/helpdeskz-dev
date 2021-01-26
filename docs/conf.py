@@ -1,5 +1,5 @@
 extensions = [
-    'sphinx.sphinxcontrib.httpdomain'
+    'sphinxcontrib.httpdomain'
 ]
 
 project = 'HelpDeskZ'
