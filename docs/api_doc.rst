@@ -20,7 +20,7 @@ All endpoints require authentication.
 Token
 ~~~~~
 
-The ``Authorization`` HTTP header can be specified with ``Token <your-access-token>``.
+The ``Authorization`` HTTP header can be specified with ``Token: <your-access-token>``.
 
 Users
 ------
