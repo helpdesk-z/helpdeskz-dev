@@ -33,5 +33,6 @@ HelpDeskz User Guide
     api/tickets
     api/messages
     api/attachments
+    api/staff
 
 Last revision: January 25th, 2021
