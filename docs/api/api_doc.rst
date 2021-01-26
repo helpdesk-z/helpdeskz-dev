@@ -1,37 +1,8 @@
-HelpDeskZ API
-==============
-
-API allows to connect your HelpDeskZ with third party sites or applications.
-
-.. contents:: Table of contents
-   :local:
-   :backlinks: none
-   :depth: 3
-
-API activation
----------------
-
-- In Staff Panel, go to Setup -> API configuraiton.
-- Create a new API.
-- Select the permissions for your new API.
-- Enter the IP that will connect with your API.
-- After creation, the system will generate your API token.
-
-Authentication and authorization
----------------------------------
-
-All endpoints require authentication.
-
-Token
-~~~~~
-
-The ``Authorization`` HTTP header can be specified with ``Token: <your-access-token>``.
-
 Users
-------
+=====
 
 Create a new user
-~~~~~~~~~~~~~~~~~
+-----------------
 
 .. http:post:: /api/users/create
 
@@ -85,7 +56,7 @@ Create a new user
         }
 
 Retrieve a list of all users
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
 
 .. http:get:: /api/users/
 
@@ -145,7 +116,7 @@ Retrieve a list of all users
         }
 
 Retrieve details of user by ID
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------
 
 .. http:get:: /api/users/show/<user_id>
 
@@ -193,7 +164,7 @@ Retrieve details of user by ID
         }
 
 Update user account
-~~~~~~~~~~~~~~~~~~~
+--------------------
 
 .. http:post:: /api/users/update/<user_id>
 
@@ -242,7 +213,7 @@ Update user account
         }
 
 Delete user account
-~~~~~~~~~~~~~~~~~~~
+--------------------
 
 .. http:post:: /api/users/delete/<user_id>
 
