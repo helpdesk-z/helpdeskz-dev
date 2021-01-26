@@ -30,6 +30,7 @@ HelpDeskz User Guide
     api/index
     api/users
     api/departments
+    api/tickets
 
 
 Last revision: January 25th, 2021
