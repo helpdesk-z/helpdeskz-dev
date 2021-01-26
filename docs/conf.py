@@ -3,6 +3,9 @@ import sys
 
 sys.path.append(os.path.abspath('_ext'))
 extensions = [
+    'sphinx.ext.autosectionlabel',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.intersphinx',
     'httpdomain',
     'tabs',
 ]
