@@ -3,7 +3,8 @@ import sys
 
 sys.path.append(os.path.abspath('_ext'))
 extensions = [
-    'httpdomain'
+    'httpdomain',
+    'sphinx_tabs.tabs',
 ]
 
 project = 'HelpDeskZ'
