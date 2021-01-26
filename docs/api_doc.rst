@@ -34,7 +34,7 @@ Users list
 
     **Example request**:
 
-    .. code-block:: php
+    .. sourcecode:: php
 
         <?php
         $curl = curl_init();
@@ -56,7 +56,7 @@ Users list
 
     **Example response**:
 
-    .. code-block:: json
+    .. sourcecode:: json
 
         {
             "success": 1,
