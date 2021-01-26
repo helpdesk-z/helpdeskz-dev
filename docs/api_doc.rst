@@ -37,11 +37,11 @@ Users list
     .. content-tabs::
 
         .. tab-container:: tab1
-            :title: CURL
+            :title: cURL
 
             .. sourcecode:: bash
 
-                $ curl -H "Token: <token>" http://helpdeskz.web/api/users
+                curl -H "Token: <token>" http://helpdeskz.web/api/users
 
         .. tab-container:: tab2
             :title: PHP
