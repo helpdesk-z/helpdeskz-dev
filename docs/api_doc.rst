@@ -34,31 +34,23 @@ Users list
 
     **Example request**:
 
-    .. tabs::
-
-        .. code-tab:: curl
-
-            curl --location --request GET 'http://support.mysite.com/api/users'
-            --header 'Token: <token>' \
-
-        .. code-tab:: php
-
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-              CURLOPT_URL => 'http://helpdeskz.web/api/users',
-              CURLOPT_RETURNTRANSFER => true,
-              CURLOPT_ENCODING => '',
-              CURLOPT_MAXREDIRS => 10,
-              CURLOPT_TIMEOUT => 0,
-              CURLOPT_FOLLOWLOCATION => true,
-              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-              CURLOPT_CUSTOMREQUEST => 'GET',
-              CURLOPT_HTTPHEADER => array(
-                'Token: <token>'
-              ),
-            ));
-            $response = curl_exec($curl);
-            curl_close($curl);
+    .. code-block:: php
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'http://helpdeskz.web/api/users',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+          CURLOPT_HTTPHEADER => array(
+            'Token: <token>'
+          ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
 
     **Example response**:
 
