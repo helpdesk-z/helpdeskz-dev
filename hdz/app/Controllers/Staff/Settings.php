@@ -537,8 +537,10 @@ class Settings extends BaseController
                 'required' => lang('Api.error.invalidStatus.'),
                 'in_list' => lang('Api.error.invalidStatus.')
             ]);
-            if($validation->withRequest($this->request)->run() == false){
+            if($validation->withRequest($this->request)->run() == false) {
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')) {
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $permissions = array();
                 foreach ($api->permissionList() as $item => $data)
@@ -584,6 +586,8 @@ class Settings extends BaseController
             ]);
             if($validation->withRequest($this->request)->run() == false){
                 $error_msg = $validation->listErrors();
+            }elseif (defined('HDZDEMO')) {
+                $error_msg = 'This is not possible in demo version.';
             }else{
                 $permissions = array();
                 foreach ($api->permissionList() as $item => $data)
