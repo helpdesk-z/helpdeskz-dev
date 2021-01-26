@@ -36,6 +36,7 @@ Users list
 
     .. code-block:: php
 
+        <?php
         $curl = curl_init();
         curl_setopt_array($curl, array(
           CURLOPT_URL => 'http://helpdeskz.web/api/users',
