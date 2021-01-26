@@ -3,6 +3,11 @@ HelpDeskZ API
 
 API allows to connect your HelpDeskZ with third party sites or applications.
 
+.. contents:: Table of contents
+   :local:
+   :backlinks: none
+   :depth: 3
+
 API activation
 ---------------
 
@@ -26,7 +31,7 @@ Users
 ------
 
 Create a new user
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
 
 .. http:post:: /api/users/create
 
