@@ -39,7 +39,7 @@ Users list
         .. tab-container:: tab1
             :title: CURL
 
-            .. sourcecode:: curl
+            .. sourcecode:: bash
 
             curl --location --request GET 'http://helpdeskz.web/api/users' \
             --header 'Token: <token>'
