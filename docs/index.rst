@@ -29,4 +29,4 @@ HelpDeskz User Guide
     api_doc
 
 
-Last revision: January 15th, 2020
+Last revision: January 25th, 2021
