@@ -34,7 +34,6 @@ Users list
 
     **Example request**:
 
-
     .. tabs::
 
         .. code-tab:: curl
