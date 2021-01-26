@@ -32,6 +32,10 @@ Users list
 
     Create a new user
 
+    :query string fullname: Client's Full Name
+    :query string email: Client's Email address
+    :query boolean notify: 1 = Client will receive an email with login information
+
     **Example request**:
 
     .. content-tabs::
