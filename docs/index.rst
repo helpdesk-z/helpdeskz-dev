@@ -35,4 +35,4 @@ HelpDeskz User Guide
     api/attachments
     api/staff
 
-Last revision: January 25th, 2021
+Last revision: January 26th, 2021
