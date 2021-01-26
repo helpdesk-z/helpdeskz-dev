@@ -84,6 +84,7 @@ Retrieve a list of all users
 
 .. http:get:: /api/users/
 
+    :query string email: Find a client by email
     :query numeric page: Page query is used to view next page
 
     **Example request**:
@@ -96,7 +97,7 @@ Retrieve a list of all users
             .. sourcecode:: bash
 
                 curl \
-                -H 'Token: <token>' https://demo.helpdeskz.com/api/users?page=1
+                -H 'Token: <token>' https://demo.helpdeskz.com/api/users
 
         .. tab-container:: tab2
             :title: PHP
@@ -136,4 +137,52 @@ Retrieve a list of all users
                     "email": "john.doe123@demo.com"
                 }
             ]
+        }
+
+Retrieve details of user by ID
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. http:get:: /api/users/show/<id>
+
+    **Example request**:
+
+    .. content-tabs::
+
+        .. tab-container:: tab1
+            :title: cURL
+
+            .. sourcecode:: bash
+
+                curl \
+                -H 'Token: <token>' https://demo.helpdeskz.com/api/users/show/<id>
+
+        .. tab-container:: tab2
+            :title: PHP
+
+            .. sourcecode:: php
+
+                <?php
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => 'https://demo.helpdeskz.com/api/users/show/<id>',
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_CUSTOMREQUEST => 'GET',
+                  CURLOPT_HTTPHEADER => array(
+                    'Token: <token>'
+                  ),
+                ));
+                $response = curl_exec($curl);
+                curl_close($curl);
+
+    **Example response**:
+
+    .. sourcecode:: json
+
+        {
+            "success": 1,
+            "user_data": {
+                "id": "1",
+                "fullname": "John Doe",
+                "email": "john.doe@demo.com"
+            }
         }
