@@ -9,6 +9,7 @@
 namespace App\Controllers\Api;
 
 
+use App\Libraries\TwoFactor;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
@@ -117,14 +118,40 @@ class Staff extends ResourceController
             }
             return $api->output($error_msg, true);
         }elseif(!$data->active){
-            return $api->output(lang('Api.error.accountLocked'), true);
+            return $api->output(lang('Api.error.accountNotActive'), true);
         }else{
-            $staff->update([
-                'login' => time(),
-                'last_login' => ($data->login == 0 ? time() : $data->login)
-            ], $data->id);
-            $staff->addLoginLog($data->id, true, $this->request->getPost('ip_address'));
-            return $api->output(lang('Api.accountLoggedIn'));
+            if($data->two_factor == '') {
+                $staff->update([
+                    'login' => time(),
+                    'last_login' => ($data->login == 0 ? time() : $data->login)
+                ], $data->id);
+                $staff->addLoginLog($data->id, true, $this->request->getPost('ip_address'));
+                return $api->output(lang('Api.accountLoggedIn'));
+            }elseif ($this->request->getPost('two_factor') == ''){
+                return $api->output(lang('Api.error.twoFactorMissing'), true);
+            }else{
+                $twoFactor = new TwoFactor();
+                if(!$twoFactor->verifyCode(str_decode($data->two_factor), $this->request->getPost('two_factor'))){
+                    $staff->addLoginLog($data->id, false, $this->request->getPost('ip_address'));
+                    $attempts = $staff->addLoginAttempt($this->request->getPost('ip_address'));
+                    $error_msg = lang('Api.error.twoFactorNotValid');
+                    if ($attempts > 0) {
+                        $error_msg .= ' '.lang_replace('Api.error.attemptCount',[
+                                '%1%' => $attempts,
+                                '%2%' => $settings->config('login_attempt')
+                            ]);
+                    }
+                    return $api->output($error_msg, true);
+                }else{
+                    $staff->update([
+                        'login' => time(),
+                        'last_login' => ($data->login == 0 ? time() : $data->login)
+                    ], $data->id);
+                    $staff->addLoginLog($data->id, true, $this->request->getPost('ip_address'));
+                    return $api->output(lang('Api.accountLoggedIn'));
+                }
+            }
+
         }
     }
 }

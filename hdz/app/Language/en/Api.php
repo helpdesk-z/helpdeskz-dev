@@ -72,7 +72,9 @@ return [
         'accountLocked' => 'Login locked for %n% minutes.',
         'attemptCount' => '(attempt: %1% of %2%)',
         'invalidUsernamePassword' => 'Invalid username or password.',
-        'accountLocked' => 'Account is locked.',
+        'accountNotActive' => 'Account is locked.',
+        'twoFactorMissing' => 'Two-Factor code is missing.',
+        'twoFactorNotValid' => 'Two-Factor authentication failed.'
     ],
     'permissionsList' => [
         'users' => 'Users',
