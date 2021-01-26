@@ -14,9 +14,9 @@ project = 'HelpDeskZ'
 author = 'Andres Mendoza'
 copyright = '2015-2021 HelpDeskZ.com'
 # The short X.Y version.
-version = '2.0'
+version = '2.0.1'
 # The full version, including alpha/beta/rc tags.
-release = '2.0'
+release = '2.0.1'
 
 # -- General configuration ---------------------------------------------------
 
