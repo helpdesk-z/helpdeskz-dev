@@ -1,3 +1,44 @@
+import os
+import sys
+from configparser import RawConfigParser
+
+import sphinx_rtd_theme
+
+sys.path.insert(0, os.path.abspath('..'))
+sys.path.append(os.path.dirname(__file__))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "readthedocs.settings.dev")
+
+from django.conf import settings
+from django.utils import timezone
+
+import django
+django.setup()
+
+
+def get_version():
+    """Return package version from setup.cfg."""
+    config = RawConfigParser()
+    config.read(os.path.join('..', 'setup.cfg'))
+    return config.get('metadata', 'version')
+
+
+sys.path.append(os.path.abspath('_ext'))
+extensions = [
+    'sphinx.ext.autosectionlabel',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.intersphinx',
+    'sphinxcontrib.httpdomain',
+    'djangodocs',
+    'doc_extensions',
+    'sphinx_tabs.tabs',
+    'sphinx-prompt',
+    'recommonmark',
+    'notfound.extension',
+    'hoverxref.extension',
+    'sphinx_search.extension',
+    'sphinxemoji.sphinxemoji',
+]
+
 project = 'HelpDeskZ'
 author = 'Andres Mendoza'
 copyright = '2015-2021 HelpDeskZ.com'
