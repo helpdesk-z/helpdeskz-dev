@@ -134,6 +134,9 @@ class MailFetcher
         if($total_attachments > 0){
             foreach ($message->getAllAttachmentParts() as $attachmentPart){
                 $fileName = $attachmentPart->getFilename();
+                if($fileName == ''){
+                    continue;
+                }
                 $attachmentPath = WRITEPATH.'uploads/'.$fileName;
                 $attachmentPart->saveContent($attachmentPath);
                 $fileInfo = new File(WRITEPATH.'uploads/'.$fileName);
