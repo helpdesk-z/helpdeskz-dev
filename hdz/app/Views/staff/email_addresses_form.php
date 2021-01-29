@@ -134,11 +134,13 @@ if(isset($success_msg)){
                         </select>
                     </div>
                     <div id="incoming_details">
-                        <div class="form-group">
-                            <div class="alert alert-warning">
-                                <?php echo lang('Admin.settings.incomingInformation');?>
+                        <?php if(HELPDESK::MAIL_DELETE == true){ ?>
+                            <div class="form-group">
+                                <div class="alert alert-warning">
+                                    <?php echo lang('Admin.settings.incomingInformation');?>
+                                </div>
                             </div>
-                        </div>
+                        <?php } ?>
                         <div class="form-group">
                             <label><?php echo lang('Admin.settings.host');?></label>
                             <input type="text" name="imap_host" class="form-control" value="<?php echo set_value('imap_host', (isset($email) ? $email->imap_host : ''));?>">
