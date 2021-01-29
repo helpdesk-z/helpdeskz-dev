@@ -44,5 +44,5 @@ class Helpdesk extends BaseConfig
     const STAFF_URI = 'staff';
     
     #Delete email after IMAP fetching
-    cont MAIL_DELETE = true;
+    const MAIL_DELETE = true;
 }
