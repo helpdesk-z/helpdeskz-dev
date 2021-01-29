@@ -35,7 +35,11 @@ class MailFetcher
                     $email->imap_password // Password for the before configured username
                 );
                 try{
-                    $mailsIds = $mailbox->searchMailbox('ALL');
+                    if(MAIL_DELETE == true){
+                        $mailsIds = $mailbox->searchMailbox('ALL');
+                    }else{
+                        $mailsIds = $mailbox->searchMailbox('UNSEEN');
+                    }
                 }catch (ConnectionException $ex){
                     log_message('error','IMAP connection failed: '.$ex);
                     return false;
