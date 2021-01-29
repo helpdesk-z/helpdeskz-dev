@@ -134,7 +134,7 @@ if(isset($success_msg)){
                         </select>
                     </div>
                     <div id="incoming_details">
-                        <?php if(Helpdesk::MAIL_DELETE == true){ ?>
+                        <?php if(MAIL_DELETE == true){ ?>
                             <div class="form-group">
                                 <div class="alert alert-warning">
                                     <?php echo lang('Admin.settings.incomingInformation');?>
