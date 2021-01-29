@@ -71,7 +71,9 @@ class MailFetcher
                             }
                         }
                     }
-                    $mailbox->deleteMail($mail->id);
+                  if(Helpdesk::MAIL_DELETE == true){
+                      $mailbox->deleteMail($mail->id);
+                  }
                 }
                 $mailbox->disconnect();
             }
