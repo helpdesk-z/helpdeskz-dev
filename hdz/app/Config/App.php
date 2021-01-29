@@ -5,6 +5,7 @@ $className = '\Config\Helpdesk';
 if(!class_exists($className)){
     die('Edit the file Helpdesk.new.php with your configuration and rename to Helpdesk.php ('.APPPATH.'Config)');
 }
+define("MAIL_DELETE", Helpdesk::MAIL_DELETE);
 class App extends Helpdesk
 {
 
