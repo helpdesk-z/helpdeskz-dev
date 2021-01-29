@@ -42,4 +42,7 @@ class Helpdesk extends BaseConfig
 
     #URI name to access to staff panel. Ex: staff / then you can access in http://helpdesk.com/staff
     const STAFF_URI = 'staff';
+    
+    #Delete email after IMAP fetching
+    cont MAIL_DELETE = true;
 }
