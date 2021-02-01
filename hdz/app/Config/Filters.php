@@ -4,14 +4,16 @@ use App\Filters\ApiAuth;
 use App\Filters\StaffAuth;
 use App\Filters\UserAuth;
 use CodeIgniter\Config\BaseConfig;
+use CodeIgniter\Filters\CSRF;
+use CodeIgniter\Filters\DebugToolbar;
 
 class Filters extends BaseConfig
 {
 	// Makes reading things below nicer,
 	// and simpler to change out script that's used.
 	public $aliases = [
-		'csrf'     => \CodeIgniter\Filters\CSRF::class,
-		'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
+		'csrf'     => CSRF::class,
+		'toolbar'  => DebugToolbar::class,
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
         'userAuth' => UserAuth::class,
         'staffAuth' => StaffAuth::class,

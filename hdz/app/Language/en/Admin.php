@@ -150,7 +150,7 @@ return [
         'incomingInformation' => 'System will delete all emails from the mailbox once downloaded. This is done to ensure best performance for the email handling process on web server side. If you want a backup of the emails, then we recommend to create a new mailbox where you forward all incoming mails to.',
         'editEmailAddress' => 'Edit email address',
         'emailTemplateUpdated' => 'Email template was updated.',
-        'defaultEmailChanged' => 'Defailt email address was changed.',
+        'defaultEmailChanged' => 'Default email address was changed.',
         'emailRemoved' => 'Email address was removed.',
         'smtpHost' => 'SMTP Host',
         'smtpPort' => 'SMTP Port',
