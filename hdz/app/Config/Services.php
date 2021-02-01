@@ -8,7 +8,7 @@ use App\Libraries\Kb;
 use App\Libraries\Settings;
 use App\Libraries\Staff;
 use App\Libraries\Tickets;
-use CodeIgniter\Config\Services as CoreServices;
+use CodeIgniter\Config\BaseService;
 
 /**
  * Services Configuration file.
@@ -23,7 +23,7 @@ use CodeIgniter\Config\Services as CoreServices;
  * method format you should use for your service methods. For more examples,
  * see the core Services file at system/Config/Services.php.
  */
-class Services extends CoreServices
+class Services extends BaseService
 {
     public static function settings($getShared = true)
     {
