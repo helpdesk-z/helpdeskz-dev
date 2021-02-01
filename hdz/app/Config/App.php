@@ -243,7 +243,7 @@ class App extends Helpdesk
      *
      * @var string
      */
-    public $cookiePrefix = 'hdz_';
+    public $cookiePrefix = '';
 
     /**
      * --------------------------------------------------------------------------
