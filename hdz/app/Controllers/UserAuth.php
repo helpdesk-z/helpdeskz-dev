@@ -30,6 +30,7 @@ class UserAuth extends BaseController
                 $error_msg = lang('Client.error.invalidEmailPassword');
             }elseif(!$client_data = $this->client->getRow([
                 'email' => $this->request->getPost('email'),
+                'status'=>1
             ])){
                 $error_msg = lang('Client.error.invalidEmailPassword');
             }else{
