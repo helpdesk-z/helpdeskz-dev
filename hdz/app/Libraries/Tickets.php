@@ -333,7 +333,6 @@ class Tickets
 
     public function staffNotification($ticket)
     {
-        return false;
         $emails = new Emails();
         $staffModel = new \App\Models\Staff();
         //Send Mail to staff
