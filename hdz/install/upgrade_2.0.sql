@@ -31,4 +31,4 @@ CREATE TABLE `{{db_prefix}}ticket_notes` (
   `date` int NOT NULL,
   `message` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
