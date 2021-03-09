@@ -32,7 +32,16 @@ return [
         'departmentUpdated' => 'Department was updated.',
         'editDepartment' => 'Edit department',
         'newDepartment' => 'New department',
-        'departmentCreated' => 'New department has been created.'
+        'departmentCreated' => 'New department has been created.',
+
+        'notes' => 'Notes',
+        'notesRemoveConfirmation' => 'Do you really want to remove this note?',
+        'invalidRequest' => 'Invalid request.',
+        'noteRemoved' => 'Note was removed.',
+        'noteUpdated' => 'Note was updated.',
+        'enterNote' => 'Enter your note.',
+        'notesSaved' => 'Your note was added.',
+        'addNote' => 'Add note'
     ],
     'account' => [
         'menu' => 'Account',

@@ -19,10 +19,13 @@ $this->section('content');
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs border-bottom" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo lang('Admin.form.general');?></a>
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-selected="true"><?php echo lang('Admin.form.general');?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="reply-tab" data-toggle="tab" href="#replyBox" role="tab" aria-controls="profile" aria-selected="false"><?php echo lang('Admin.form.reply');?></a>
+                    <a class="nav-link" id="reply-tab" data-toggle="tab" href="#replyBox" role="tab" aria-selected="false"><?php echo lang('Admin.form.reply');?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="notes-tab" data-toggle="tab" href="#notesBox" role="tab" aria-selected="false"><?php echo lang('Admin.tickets.notes');?></a>
                 </li>
             </ul>
         </div>
@@ -186,6 +189,63 @@ $this->section('content');
 
                     <?php echo form_close();?>
                 </div>
+                <div class="tab-pane fade" id="notesBox" role="tabpanel" aria-labelledby="notes-tab">
+                    <?php
+                    if(isset($notes)){
+                       foreach ($notes as $note){
+                           ?>
+                           <div class="alert alert-light border mb-3">
+                               <div class="alert-heading">
+                                   by <?php echo $note->fullname;?>
+                                   <small>&raquo; <?php echo dateFormat($note->date);?></small>
+                                   <?php
+                                   if(staff_data('admin') == 1 || staff_data('id') == $note->staff_id){
+                                       ?>
+                                       <div class="float-right">
+                                           <?php echo form_open('',['id' => 'noteForm'.$item->id],['do'=>'delete_note','note_id'=>$note->id]);?>
+                                           <button type="button" onclick="editNoteToggle('<?php echo $note->id;?>');" class="btn btn-link" title="Edit note" data-toggle="tooltip"><i class="fa fa-edit"></i></button>
+                                           <button type="button" onclick="deleteNote('noteForm<?php echo $item->id;?>');" class="btn btn-link" title="Delete note" data-toggle="tooltip"><i class="fa fa-trash-alt"></i></button>
+                                           <?php echo form_close();?>
+                                       </div>
+                                       <?php
+                                   }
+                                   ?>
+                                   <hr>
+                               </div>
+                               <div id="plainNote<?php echo $note->id;?>">
+                                   <p><?php echo nl2br($note->message);?></p>
+                               </div>
+                               <div id="inputNote<?php echo $note->id;?>" style="display: none">
+                                   <?php echo form_open('',['id' => 'editNoteForm'.$item->id],['do'=>'edit_note','note_id'=>$note->id]);?>
+                                   <div class="form-group">
+                                       <textarea class="form-control" name="new_note"><?php echo set_value('new_note', $note->message, false);?></textarea>
+                                   </div>
+                                   <div class="form-group">
+                                       <button class="btn btn-primary"><?php echo lang('Admin.form.save');?></button>
+                                       <button type="button" onclick="editNoteToggle(<?php echo $note->id;?>);" class="btn btn-dark"><?php echo lang('Admin.form.cancel');?></button>
+                                   </div>
+                                   <?php
+                                   echo form_close();
+                                   ?>
+                               </div>
+
+                           </div>
+                    <?php
+                       }
+                    }
+                    ?>
+                    <?php
+                    echo form_open_multipart('',[],['do'=>'save_notes']);
+                    ?>
+                    <div class="form-group">
+                        <textarea class="form-control" name="noteBook"><?php echo set_value('noteBook');?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary"><i class="fa fa-edit"></i> <?php echo lang('Admin.tickets.addNote');?></button>
+                    </div>
+
+                    <?php echo form_close();?>
+                </div>
             </div>
         </div>
     </div>
@@ -301,6 +361,34 @@ include __DIR__.'/tinymce.php';
         }
         ?>
         var KBUrl =  '<?php echo site_url(route_to('staff_ajax_kb'));?>';
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+        function deleteNote(noteFormId)
+        {
+            Swal.fire({
+
+                text: langNoteConfirmation,
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: langDelete,
+                cancelButtonText: langCancel,
+                cancelButtonColor: '#d33',
+            }).then((result) => {
+                if (result.value) {
+                    $('#'+noteFormId).submit();
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    return false;
+                }
+            });
+        }
+
+        function editNoteToggle(noteId)
+        {
+            $('#plainNote'+noteId).toggle();
+            $('#inputNote'+noteId).toggle();
+        }
     </script>
 <?php
 $this->endSection();

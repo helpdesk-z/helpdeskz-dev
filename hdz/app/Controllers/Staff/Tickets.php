@@ -186,6 +186,47 @@ class Tickets extends BaseController
                 return redirect()->to(current_url());
             }
         }
+        elseif ($this->request->getPost('do') == 'delete_note'){
+            $validation = Services::validation();
+            $validation->setRule('note_id','note_id','required|is_natural_no_zero');
+            if($validation->withRequest($this->request)->run() == false) {
+                $error_msg = lang('Admin.tickets.invalidRequest');
+            }elseif(!$note = $tickets->getNote($this->request->getPost('note_id'))) {
+                $error_msg = lang('Admin.tickets.invalidRequest');
+            }elseif ($this->staff->getData('admin') == 1 || $this->staff->getData('id') == $note->staff_id){
+                $tickets->deleteNote($ticket->id, $this->request->getPost('note_id'));
+                $this->session->setFlashdata('ticket_update', lang('Admin.tickets.noteRemoved'));
+                return redirect()->to(current_url());
+            }else{
+                $error_msg = lang('Admin.tickets.invalidRequest');
+            }
+        }
+        elseif ($this->request->getPost('do') == 'edit_note'){
+            $validation = Services::validation();
+            $validation->setRule('note_id','note_id','required|is_natural_no_zero');
+            if($validation->withRequest($this->request)->run() == false) {
+                $error_msg = lang('Admin.tickets.invalidRequest');
+            }elseif ($this->request->getPost('new_note') == ''){
+                $error_msg = lang('Admin.tickets.enterNote');
+            }elseif(!$note = $tickets->getNote($this->request->getPost('note_id'))) {
+                $error_msg = lang('Admin.tickets.invalidRequest');
+            }elseif ($this->staff->getData('admin') == 1 || $this->staff->getData('id') == $note->staff_id){
+                $tickets->updateNote($this->request->getPost('new_note'), $note->id);
+                $this->session->setFlashdata('ticket_update', lang('Admin.tickets.noteUpdated'));
+                return redirect()->to(current_url());
+            }else{
+                $error_msg = lang('Admin.tickets.invalidRequest');
+            }
+        }
+        elseif ($this->request->getPost('do') == 'save_notes'){
+            if($this->request->getPost('noteBook') == ''){
+                $error_msg = lang('Admin.tickets.enterNote');
+            }else{
+                $tickets->addNote($ticket->id, $this->staff->getData('id'), $this->request->getPost('noteBook'));
+                $this->session->setFlashdata('ticket_update', lang('Admin.tickets.notesSaved'));
+                return redirect()->to(current_url());
+            }
+        }
 
         if($this->session->has('ticket_update')){
             $success_msg = $this->session->getFlashdata('ticket_update');
@@ -206,6 +247,7 @@ class Tickets extends BaseController
             'ticket_statuses' => $tickets->statusList(),
             'ticket_priorities' => $tickets->getPriorities(),
             'kb_selector' => Services::kb()->kb_article_selector(),
+            'notes' => $tickets->getNotes($ticket->id)
         ]);
     }
 

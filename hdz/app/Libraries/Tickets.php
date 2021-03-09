@@ -12,6 +12,7 @@ namespace App\Libraries;
 use App\Models\CannedModel;
 use App\Models\CustomFields;
 use App\Models\PriorityModel;
+use App\Models\TicketNotesModel;
 use App\Models\TicketsMessage;
 use Config\Database;
 use Config\Services;
@@ -537,13 +538,12 @@ class Tickets
      */
     public function autoCloseTickets()
     {
-        $date_left = time() - (60*60*$this->settings->get('ticket_autoclose'));
+        $date_left = time() - (60*60*$this->settings->config('ticket_autoclose'));
         $this->ticketsModel->protect(false)
             ->where('status', 2)
             ->where('last_update<=', $date_left)
-            ->update([
-                'status' => 5
-            ]);
+            ->set('status', 5)
+            ->update();
         $this->ticketsModel->protect(true);
     }
 
@@ -762,5 +762,55 @@ class Tickets
         $config = \HTMLPurifier_Config::createDefault();
         $purifier = new \HTMLPurifier($config);
         return $purifier->purify($message);
+    }
+
+    /*
+     * ----------------------------------------
+     * Notes
+     * ----------------------------------------
+     */
+    public function getNotes($ticket_id)
+    {
+        $ticketsNotesModel = new TicketNotesModel();
+        $q = $ticketsNotesModel->select('ticket_notes.*, staff.username, staff.fullname')
+            ->orderBy('date','desc')
+            ->join('staff', 'staff.id=ticket_notes.staff_id')
+            ->where('ticket_id', $ticket_id)
+            ->get();
+        if($q->resultID->num_rows == 0){
+            return null;
+        }
+        $r =$q->getResult();
+        $q->freeResult();
+        return $r;
+    }
+    public function getNote($note_id)
+    {
+        $ticketsNoteModel = new TicketNotesModel();
+        return $ticketsNoteModel->find($note_id);
+    }
+    public function addNote($ticket_id, $staff_id, $note)
+    {
+        $ticketNotesModel = new TicketNotesModel();
+        return $ticketNotesModel->insert([
+            'ticket_id' => $ticket_id,
+            'staff_id' => $staff_id,
+            'date' => time(),
+            'message' => esc($note)
+        ]);
+    }
+    public function deleteNote($ticket_id, $note_id)
+    {
+        $ticketNotesModel = new TicketNotesModel();
+        $ticketNotesModel->where('ticket_id', $ticket_id)
+            ->where('id', $note_id)
+            ->delete();
+    }
+    public function updateNote($note, $note_id)
+    {
+        $ticketNotesModel = new TicketNotesModel();
+        $ticketNotesModel->update($note_id, [
+            'message' => esc($note)
+        ]);
     }
 }

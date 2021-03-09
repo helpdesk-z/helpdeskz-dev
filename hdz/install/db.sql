@@ -210,6 +210,16 @@ CREATE TABLE `{{db_prefix}}tickets_messages` (
   `email` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `{{db_prefix}}ticket_notes`;
+CREATE TABLE `{{db_prefix}}ticket_notes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `ticket_id` int NOT NULL,
+  `staff_id` int NOT NULL,
+  `date` int NOT NULL,
+  `message` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 DROP TABLE IF EXISTS `{{db_prefix}}users`;
 CREATE TABLE `{{db_prefix}}users` (
   `id` int NOT NULL,

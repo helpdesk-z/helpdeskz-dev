@@ -195,7 +195,7 @@
             </div>
             <footer class="main-footer d-flex mt-3 p-2 px-3 bg-white border-top">
                 <span class="copyright ml-auto my-auto mr-2">Copyright © 2015 - <?php echo date('Y');?>
-              <a href="https://helpdeskz.com" rel="nofollow">HelpDeskZ</a>
+              <a href="https://helpdeskz.com" rel="nofollow">HelpDeskZ v<?php echo HDZ_VERSION;?></a>
             </span>
             </footer>
         </main>
@@ -215,6 +215,7 @@
     var langEmailConfirmation = '<?php echo addcslashes(lang('Admin.settings.emailDeletionConfirm'), "'");?>';
     var langCustomFieldConfirmation = '<?php echo addcslashes(lang('Admin.tools.customFieldConfirm'), "'");?>';
     var langUserConfirmation = '<?php echo addcslashes(lang('Admin.users.removeUserConfirmation'), "'");?>';
+    var langNoteConfirmation = '<?php echo addcslashes(lang('Admin.tickets.notesRemoveConfirmation'), "'");?>';
 
     var langDelete = '<?php echo addcslashes(lang('Admin.form.delete'),"'");?>';
     var langCancel = '<?php echo addcslashes(lang('Admin.form.cancel'),"'");?>';
