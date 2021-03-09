@@ -111,3 +111,13 @@ ALTER TABLE `{{db_prefix}}api`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `{{db_prefix}}staff` ADD `two_factor` VARCHAR(255) NULL DEFAULT NULL AFTER `avatar`;
+
+DROP TABLE IF EXISTS `{{db_prefix}}ticket_notes`;
+CREATE TABLE `{{db_prefix}}ticket_notes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `ticket_id` int NOT NULL,
+  `staff_id` int NOT NULL,
+  `date` int NOT NULL,
+  `message` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8_general_ci;
