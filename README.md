@@ -1,6 +1,6 @@
 ![](/assets/helpdeskz/images/logo.png)
 
-Version: 2.0.1 from January 26th, 2021<br>
+Version: 2.0.2 from March 09th, 2021<br>
 Developed by: Andres Mendoza<br>
 [Help Desk Software HelpDeskZ](https://www.helpdeskz.com)
 
@@ -10,8 +10,9 @@ HelpDeskZ is a free PHP based software which allows you to manage your site's su
 
 HelpDeskZ requires:
 
-- PHP >= 7.2
+- PHP >= 7.3
 - MySQL database
+- ext-intl
 - ext-fileinfo
 - ext-iconv
 - ext-imap

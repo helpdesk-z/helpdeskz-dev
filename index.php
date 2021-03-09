@@ -10,7 +10,7 @@ unset($minPHPVersion);
 // Path to the front controller (this file)
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 define('HDZ_PATH', FCPATH.'hdz'.DIRECTORY_SEPARATOR);
-define('HDZ_VERSION', '2.0.1');
+define('HDZ_VERSION', '2.0.2');
 
 /*
  *---------------------------------------------------------------
