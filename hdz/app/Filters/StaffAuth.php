@@ -29,6 +29,7 @@ class StaffAuth implements FilterInterface
                 return redirect()->route('staff_dashboard');
             }
             set_timezone(($staff->getData('timezone') == '' ? Services::settings()->config('timezone') : $staff->getData('timezone')));
+            Services::tickets()->autoCloseTickets();
         }
 
         /*
