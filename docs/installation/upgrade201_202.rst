@@ -7,7 +7,7 @@ Changelog
 - Framework update to work with PHP >= 7.3.
 - The auto-close of tickets is fixed.
 - The staff notification when new ticket is opened is fixed.
-- Ticket notes.
+- Ticket notes added.
 
 Upgrade process
 ---------------
