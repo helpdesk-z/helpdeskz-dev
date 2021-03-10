@@ -344,9 +344,10 @@ class Settings extends BaseController
 
         $emailsLib = new Emails();
         if($this->request->getMethod() == 'post'){
-            $error_msg = 'This is not possible in demo version.';
-        }else{
-            if($this->request->getPost('action') == 'set_default')
+            if(defined('HDZDEMO')){
+                $error_msg = 'This is not possible in demo version.';
+            }
+            elseif($this->request->getPost('action') == 'set_default')
             {
                 $emailsLib->set_default($this->request->getPost('email_id'));
                 $this->session->setFlashdata('form_success',lang('Admin.settings.defaultEmailChanged'));
