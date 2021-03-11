@@ -23,7 +23,7 @@
         <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="card-body">
-                    <img src="/assets/helpdeskz/images/logo.png" alt="" class="img-fluid mb-4">
+                    <img src="<?php echo site_logo();?>" alt="" class="img-fluid mb-4">
                     <h4 class="mb-3 f-w-400"><?php echo lang('Admin.login.title');?></h4>
                     <?php
                     if(isset($error_msg)){
