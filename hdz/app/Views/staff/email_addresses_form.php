@@ -86,7 +86,7 @@ if(isset($success_msg)){
                     <div id="outgoing_details">
                         <div class="form-group">
                             <label><?php echo lang('Admin.settings.host');?></label>
-                            <input type="text" name="smtp_host" class="form-control" value="<?php echo set_value('smtp_host', (isset($email) ? $email->smtp_host : 'mail.gmail.com'));?>">
+                            <input type="text" name="smtp_host" class="form-control" value="<?php echo set_value('smtp_host', (isset($email) ? $email->smtp_host : 'smtp.gmail.com'));?>">
                         </div>
                         <div class="form-group">
                             <label><?php echo lang('Admin.settings.port');?></label>
