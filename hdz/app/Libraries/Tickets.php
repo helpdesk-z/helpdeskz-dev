@@ -346,7 +346,7 @@ class Tickets
                     '%ticket_id%' => $ticket->id,
                     '%ticket_subject%' => $ticket->subject,
                     '%ticket_department%' => $ticket->department_name,
-                    '%ticket_status%' => lang('open'),
+                    '%ticket_status%' => lang('Admin.form.open'),
                     '%ticket_priority%' => $ticket->priority_name,
                 ],$item->email, $ticket->department_id);
             }
@@ -375,10 +375,25 @@ class Tickets
             '%ticket_id%' => $ticket->id,
             '%ticket_subject%' => $ticket->subject,
             '%ticket_department%' => $ticket->department_name,
-            '%ticket_status%' => $this->statusName($ticket->status),
+            '%ticket_status%' => lang('Admin.form.'.$this->statusName($ticket->status)),
             '%ticket_priority%' => $ticket->priority_name,
             '%message%' => $message,
         ], $ticket->email, $ticket->department_id, $files);
+    }
+
+    public function autoResponseNotification($ticket)
+    {
+        //Send Mail to client
+        $emails = new Emails();
+        $emails->sendFromTemplate('autoresponse', [
+            '%client_name%' => $ticket->fullname,
+            '%client_email%' => $ticket->email,
+            '%ticket_id%' => $ticket->id,
+            '%ticket_subject%' => $ticket->subject,
+            '%ticket_department%' => $ticket->department_name,
+            '%ticket_status%' => lang('Client.form.'.$this->statusName($ticket->status)),
+            '%ticket_priority%' => $ticket->priority_name,
+        ], $ticket->email, $ticket->department_id);
     }
 
     /*

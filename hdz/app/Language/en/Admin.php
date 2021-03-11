@@ -33,7 +33,6 @@ return [
         'editDepartment' => 'Edit department',
         'newDepartment' => 'New department',
         'departmentCreated' => 'New department has been created.',
-
         'notes' => 'Notes',
         'notesRemoveConfirmation' => 'Do you really want to remove this note?',
         'invalidRequest' => 'Invalid request.',

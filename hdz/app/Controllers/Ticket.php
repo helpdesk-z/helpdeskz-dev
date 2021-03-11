@@ -233,6 +233,7 @@ class Ticket extends BaseController
                 }
 
                 $tickets->staffNotification($info);
+                $tickets->autoResponseNotification($info);
                 $this->session->setFlashdata('form_success',lang('Client.viewTickets.replySent'));
                 return redirect()->to(current_url());
             }

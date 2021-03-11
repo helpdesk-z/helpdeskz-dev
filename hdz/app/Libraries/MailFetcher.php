@@ -176,6 +176,7 @@ class MailFetcher
             $ticket_id = $ticket->id;
             $message_id = $tickets->addMessage($ticket_id, $body, 0, false);
             $tickets->updateTicketReply($ticket_id, $ticket->status);
+            $tickets->autoResponseNotification($ticket);
         }
         $tickets->staffNotification($ticket);
         return [$ticket_id,$message_id];
