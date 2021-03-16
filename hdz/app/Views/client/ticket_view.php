@@ -93,7 +93,7 @@ $this->section('content');
                         <?php
                     }
                     ?>
-                    <small class="text-muted"><?php echo lang('Client.Form.allowedFiles');?> <?php echo '*.'.implode(', *.', unserialize(site_config('ticket_file_type')));?></small>
+                    <small class="text-muted"><?php echo lang('Client.form.allowedFiles');?> <?php echo '*.'.implode(', *.', unserialize(site_config('ticket_file_type')));?></small>
                 </div>
                 <?php
             }
