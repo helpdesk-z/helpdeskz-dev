@@ -23,6 +23,8 @@ return [
         'attachmentRemoved' => 'Attachment was removed.',
         'messageSent' => 'Your message has been sent.',
         'newTicket' => 'New ticket',
+        'ticketUpdated' => 'Ticket updated.',
+        'ticketCreated' => 'Ticket has been created and client was notified.',
         'submitNewTicket' => 'Submit new ticket',
         'fullName' => 'Optional. If ticket will be sent to an existing client, then you can only enter the email.',
         'departments' => 'Departments',
@@ -59,7 +61,11 @@ return [
         'menu' => 'Canned responses',
         'removeConfirmation' => 'Do you really want to remove these canned responses?',
         'edit' => 'Edit canned response',
-        'new' => 'New canned response'
+        'new' => 'New canned response',
+        'cannedRemoved' => 'Canned response has been removed.',
+        'cannedUpdated' => 'Canned response has been updated.',
+        'cannedInserted' => 'Canned response has been inserted.'
+
     ],
     'kb' => [
         'menu' => 'Knowledge Base',
@@ -70,6 +76,9 @@ return [
         'editCategory' => 'Edit category',
         'addSubcategory' => 'Add subcategory',
         'newArticle' => 'New article',
+        'articleRemoved' => 'Article has been removed.',
+        'articleCreated' => 'New article has been created.',
+        'articleUpdated' => 'Article has been updated.',
         'removeCategory' => 'Remove category',
         'removeConfirmation' => 'Do you really want to remove this category and its sub categories and articles?',
         'categoryRemoved' => 'Category has been removed.',
