@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package EvolutionScript
  * @author: EvolutionScript S.A.C.
@@ -20,24 +21,23 @@ class Kb extends BaseController
     public function categories()
     {
         $kb = Services::kb();
-        if($this->request->getGet('action') == 'move_down' && is_numeric($this->request->getGet('id')))
-        {
+        if ($this->request->getGet('action') == 'move_down' && is_numeric($this->request->getGet('id'))) {
             $kb->moveCategory($this->request->getGet('id'), false);
             return redirect()->to(current_url());
-        }elseif ($this->request->getGet('action') == 'move_up' && is_numeric($this->request->getGet('id'))){
+        } elseif ($this->request->getGet('action') == 'move_up' && is_numeric($this->request->getGet('id'))) {
             $kb->moveCategory($this->request->getGet('id'), true);
             return redirect()->to(current_url());
         }
-        if($this->request->getPost('do') == 'remove'){
+        if ($this->request->getPost('do') == 'remove') {
             if (defined('HDZDEMO')) {
                 $error_msg = 'This is not possible in demo version.';
-            }else{
+            } else {
                 $kb->removeCategory($this->request->getPost('category_id'));
-                $this->session->setFlashdata('form_success',lang('Admin.kb.categoryRemoved'));
+                $this->session->setFlashdata('form_success', lang('Admin.kb.categoryRemoved'));
                 return redirect()->to(current_url());
             }
         }
-        return view('staff/kb_categories',[
+        return view('staff/kb_categories', [
             'error_msg' => isset($error_msg) ? $error_msg : null,
             'success_msg' => ($this->session->has('form_success') ? $this->session->getFlashdata('form_success') : null),
             'kb_list' => $kb->getChildren(0, false, 0, ' - - - ')
@@ -47,14 +47,13 @@ class Kb extends BaseController
     public function newCategory()
     {
         $kb = Services::kb();
-        if($this->request->getPost('do') == 'submit')
-        {
+        if ($this->request->getPost('do') == 'submit') {
             $validation = Services::validation();
             $validation->setRules([
                 'name' => 'required',
                 'parent' => 'required|is_natural',
                 'public' => 'required|in_list[0,1]',
-            ],[
+            ], [
                 'name' => [
                     'required' => lang('Admin.error.enterCategoryName')
                 ],
@@ -67,17 +66,17 @@ class Kb extends BaseController
                     'in_list' => lang('Admin.error.selectCategoryType'),
                 ]
             ]);
-            if($validation->withRequest($this->request)->run() == false) {
+            if ($validation->withRequest($this->request)->run() == false) {
                 $error_msg = $validation->listErrors();
-            }elseif (defined('HDZDEMO')) {
+            } elseif (defined('HDZDEMO')) {
                 $error_msg = 'This is not possible in demo version.';
-            }else{
+            } else {
                 $kb->insertCategory($this->request->getPost('name'), $this->request->getPost('parent'), $this->request->getPost('public'));
                 $this->session->setFlashdata('form_success', lang('Admin.kb.categoryCreated'));
                 return redirect()->to(current_url());
             }
         }
-        return view('staff/kb_categories_form',[
+        return view('staff/kb_categories_form', [
             'error_msg' => isset($error_msg) ? $error_msg : null,
             'success_msg' => $this->session->has('form_success') ? $this->session->getFlashdata('form_success') : null,
             'kb_list' => $kb->getChildren(0, false, 0, ' - - - '),
@@ -88,19 +87,17 @@ class Kb extends BaseController
     public function editCategory($category_id)
     {
         $kb = Services::kb();
-        if(!$category =$kb->getCategory($category_id, false))
-        {
+        if (!$category = $kb->getCategory($category_id, false)) {
             return redirect()->to('staff_kb_categories');
         }
 
-        if($this->request->getPost('do') == 'submit')
-        {
+        if ($this->request->getPost('do') == 'submit') {
             $validation = Services::validation();
             $validation->setRules([
                 'name' => 'required',
                 'parent' => 'required|is_natural',
                 'public' => 'required|in_list[0,1]',
-            ],[
+            ], [
                 'name' => [
                     'required' => lang('Admin.error.enterCategoryName')
                 ],
@@ -113,11 +110,11 @@ class Kb extends BaseController
                     'in_list' => lang('Admin.error.selectCategoryType'),
                 ]
             ]);
-            if($validation->withRequest($this->request)->run() == false) {
+            if ($validation->withRequest($this->request)->run() == false) {
                 $error_msg = $validation->listErrors();
-            }elseif (defined('HDZDEMO')) {
+            } elseif (defined('HDZDEMO')) {
                 $error_msg = 'This is not possible in demo version.';
-            }else{
+            } else {
                 $kb->updateCategory([
                     'name' => esc($this->request->getPost('name')),
                     'parent' => $this->request->getPost('parent'),
@@ -128,7 +125,7 @@ class Kb extends BaseController
             }
         }
 
-        return view('staff/kb_categories_form',[
+        return view('staff/kb_categories_form', [
             'error_msg' => isset($error_msg) ? $error_msg : null,
             'success_msg' => $this->session->has('form_success') ? $this->session->getFlashdata('form_success') : null,
             'category' => $category,
@@ -139,20 +136,20 @@ class Kb extends BaseController
     /*
      * Articles
      */
-    public function articles($category=0)
+    public function articles($category = 0)
     {
         $kb = Services::kb();
-        if($this->request->getPost('do') == 'remove'){
+        if ($this->request->getPost('do') == 'remove') {
             if (defined('HDZDEMO')) {
                 $error_msg = 'This is not possible in demo version.';
-            }else{
+            } else {
                 $kb->removeArticle($this->request->getPost('article_id'));
-                $this->session->setFlashdata('form_success','Article has been removed.');
+                $this->session->setFlashdata('form_success', lang('Admin.kb.articleRemoved'));
                 return redirect()->to(current_url());
             }
         }
         $pagination = $kb->articlesPagination($category);
-        return view('staff/kb_articles',[
+        return view('staff/kb_articles', [
             'error_msg' => isset($error_msg) ? $error_msg : null,
             'success_msg' => $this->session->has('form_success') ? $this->session->getFlashdata('form_success') : null,
             'articles_result' => $pagination['result'],
@@ -165,15 +162,14 @@ class Kb extends BaseController
     public function newArticle()
     {
         $kb = Services::kb();
-        if($this->request->getPost('do') == 'submit')
-        {
+        if ($this->request->getPost('do') == 'submit') {
             $validation = Services::validation();
             $validation->setRules([
                 'title' => 'required',
                 'category_id' => 'required|is_natural_no_zero',
                 'public' => 'required|in_list[0,1]',
                 'content' => 'required'
-            ],[
+            ], [
                 'title' => [
                     'required' => lang('Admin.error.enterTitle'),
                 ],
@@ -189,18 +185,22 @@ class Kb extends BaseController
                     'required' => lang('Admin.error.enterContent')
                 ]
             ]);
-            if($validation->withRequest($this->request)->run() == false) {
+            if ($validation->withRequest($this->request)->run() == false) {
                 $error_msg = $validation->listErrors();
-            }elseif (defined('HDZDEMO')) {
+            } elseif (defined('HDZDEMO')) {
                 $error_msg = 'This is not possible in demo version.';
-            }else{
-                $kb->addArticle($this->request->getPost('title'), $this->request->getPost('content'),
-                    $this->request->getPost('category_id'), $this->request->getPost('public'));
-                $this->session->setFlashdata('form_success','New article has been created.');
+            } else {
+                $kb->addArticle(
+                    $this->request->getPost('title'),
+                    $this->request->getPost('content'),
+                    $this->request->getPost('category_id'),
+                    $this->request->getPost('public')
+                );
+                $this->session->setFlashdata('form_success', lang('Admin.kb.articleCreated'));
                 return redirect()->to(current_url());
             }
         }
-        return view('staff/kb_articles_form',[
+        return view('staff/kb_articles_form', [
             'error_msg' => (isset($error_msg) ? $error_msg : null),
             'success_msg' => ($this->session->has('form_success') ? $this->session->getFlashdata('form_success') : null),
             'kb_list' => $kb->getChildren(0, false, 0, ' - - - '),
@@ -211,18 +211,17 @@ class Kb extends BaseController
     public function editArticle($article_id)
     {
         $kb = Services::kb();
-        if(!$article = $kb->getArticle($article_id, false)){
+        if (!$article = $kb->getArticle($article_id, false)) {
             return redirect()->route('staff_kb_articles');
         }
-        if($this->request->getPost('do') == 'submit')
-        {
+        if ($this->request->getPost('do') == 'submit') {
             $validation = Services::validation();
             $validation->setRules([
                 'title' => 'required',
                 'category_id' => 'required|is_natural_no_zero',
                 'public' => 'required|in_list[0,1]',
                 'content' => 'required'
-            ],[
+            ], [
                 'title' => [
                     'required' => lang('Admin.error.enterTitle'),
                 ],
@@ -239,18 +238,23 @@ class Kb extends BaseController
                 ]
             ]);
 
-            if($validation->withRequest($this->request)->run() == false) {
+            if ($validation->withRequest($this->request)->run() == false) {
                 $error_msg = $validation->listErrors();
-            }elseif (defined('HDZDEMO')) {
+            } elseif (defined('HDZDEMO')) {
                 $error_msg = 'This is not possible in demo version.';
-            }else{
-                $kb->updateArticle($article->id, $this->request->getPost('title'), $this->request->getPost('content'),
-                    $this->request->getPost('category_id'), $this->request->getPost('public'));
-                $this->session->setFlashdata('form_success','Article has been updated.');
+            } else {
+                $kb->updateArticle(
+                    $article->id,
+                    $this->request->getPost('title'),
+                    $this->request->getPost('content'),
+                    $this->request->getPost('category_id'),
+                    $this->request->getPost('public')
+                );
+                $this->session->setFlashdata('form_success', lang('Admin.kb.articleUpdated'));
                 return redirect()->to(current_url());
             }
         }
-        return view('staff/kb_articles_form',[
+        return view('staff/kb_articles_form', [
             'error_msg' => (isset($error_msg) ? $error_msg : null),
             'success_msg' => ($this->session->has('form_success') ? $this->session->getFlashdata('form_success') : null),
             'kb_list' => $kb->getChildren(0, false, 0, ' - - - '),
