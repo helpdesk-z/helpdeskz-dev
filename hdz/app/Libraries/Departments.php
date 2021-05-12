@@ -42,7 +42,7 @@ class Departments
         }
         $q = $this->departmentsModel->orderBy('dep_order','asc')
             ->get();
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         $result = $q->getResult();
@@ -72,7 +72,7 @@ class Departments
             ->where('dep_order<', $department->dep_order)
             ->orderBy('dep_order','desc')
             ->get(1);
-        if($q->resultID->num_rows > 0){
+        if($q->getNumRows() > 0){
             $prev = $q->getRow();
             $this->departmentsModel->protect(false);
             $this->departmentsModel->update($department->id, [
@@ -95,7 +95,7 @@ class Departments
             ->where('dep_order>', $department->dep_order)
             ->orderBy('dep_order','asc')
             ->get(1);
-        if($q->resultID->num_rows > 0){
+        if($q->getNumRows() > 0){
             $next = $q->getRow();
             $this->departmentsModel->protect(false);
             $this->departmentsModel->update($department->id, [
@@ -123,7 +123,7 @@ class Departments
         $q = $this->departmentsModel->select('id, dep_order')
             ->orderBy('dep_order','asc')
             ->get(1);
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         return $q->getRow();
@@ -134,7 +134,7 @@ class Departments
         $q = $this->departmentsModel->select('id, dep_order')
             ->orderBy('dep_order','desc')
             ->get(1);
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         return $q->getRow();
@@ -161,7 +161,7 @@ class Departments
         $q = $ticketModel->select('id')
             ->where('department_id', $id)
             ->get();
-        if($q->resultID->num_rows > 0){
+        if($q->getNumRows() > 0){
             foreach ($q->getResult() as $item){
                 $tickets->deleteTicket($item->id);
             }

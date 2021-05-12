@@ -24,7 +24,7 @@ class Emails
         $q = $this->emailModel->orderBy('default','desc')
             ->orderBy('created','desc')
             ->get();
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         $r = $q->getResult();
@@ -37,7 +37,7 @@ class Emails
         $q = $this->emailModel->where('incoming_type', 'imap')
             ->orWhere('incoming_type', 'pop')
             ->get();
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         $r = $q->getResult();
@@ -61,7 +61,7 @@ class Emails
     public function getRow($where=array())
     {
         $q = $this->emailModel->where($where)->get(1);
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         return $q->getRow();
@@ -213,7 +213,7 @@ class Emails
         $emailTemplate = new EmailTemplate();
         $q = $emailTemplate->orderBy('position','asc')
             ->get();
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         $r = $q->getResult();

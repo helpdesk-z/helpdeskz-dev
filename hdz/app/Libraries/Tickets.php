@@ -114,7 +114,7 @@ class Tickets
             ->join('priority as p','p.id=tickets.priority_id')
             ->join('users as u','u.id=tickets.user_id')
             ->get(1);
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         return $q->getRow();
@@ -138,7 +138,7 @@ class Tickets
         $builder = $db->table('custom_fields');
         $q = $builder->orderBy('display','asc')
             ->get();
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         $r = $q->getResult();
@@ -216,7 +216,7 @@ class Tickets
         $q = $customFieldsModel->select('id, display')
             ->orderBy('display','asc')
             ->get(1);
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         return $q->getRow();
@@ -228,7 +228,7 @@ class Tickets
         $q = $customFieldsModel->select('id, display')
             ->orderBy('display','desc')
             ->get(1);
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         return $q->getRow();
@@ -260,7 +260,7 @@ class Tickets
             ->where('display<', $customField->display)
             ->orderBy('display','desc')
             ->get(1);
-        if($q->resultID->num_rows > 0){
+        if($q->getNumRows() > 0){
             $prev = $q->getRow();
             $customFieldsModel->protect(false);
             $customFieldsModel->update($customField->id, [
@@ -284,7 +284,7 @@ class Tickets
             ->where('display>', $customField->display)
             ->orderBy('display','asc')
             ->get(1);
-        if($q->resultID->num_rows > 0){
+        if($q->getNumRows() > 0){
             $next = $q->getRow();
             $customFieldsModel->protect(false);
             $customFieldsModel->update($customField->id, [
@@ -304,7 +304,7 @@ class Tickets
         $q = $customFieldsModel->where('departments','')
             ->orLike('departments', '"'.$department_id.'"')
             ->get();
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         $r = $q->getResult();
@@ -339,7 +339,7 @@ class Tickets
         //Send Mail to staff
         $q = $staffModel->like('department', '"'.$ticket->department_id.'"')
             ->get();
-        if($q->resultID->num_rows > 0){
+        if($q->getNumRows() > 0){
             foreach ($q->getResult() as $item){
                 $emails->sendFromTemplate('staff_ticketnotification',[
                     '%staff_name%' => $item->fullname,
@@ -406,7 +406,7 @@ class Tickets
         $q = $this->messagesModel->where('ticket_id', $ticket_id)
             ->orderBy('date','asc')
             ->get(1);
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         return $q->getRow();
@@ -436,7 +436,7 @@ class Tickets
         $cannedModel = new CannedModel();
         $q = $cannedModel->orderBy('position','asc')
             ->get();
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         $r = $q->getResult();
@@ -494,7 +494,7 @@ class Tickets
         $q = $cannedModel->select('position')
             ->orderBy('position','desc')
             ->get(1);
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return 0;
         }
         return $q->getRow()->position;
@@ -792,7 +792,7 @@ class Tickets
             ->join('staff', 'staff.id=ticket_notes.staff_id')
             ->where('ticket_id', $ticket_id)
             ->get();
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         $r =$q->getResult();

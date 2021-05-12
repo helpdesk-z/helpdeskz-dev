@@ -140,7 +140,7 @@ class Staff
         $q = $builder->select('attempts, date')
             ->where('ip', $ip_address)
             ->get(1);
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return false;
         }
         $result = $q->getRow();
@@ -162,7 +162,7 @@ class Staff
         $ip_address = (!is_null($ip_address) ? $ip_address : $request->getIPAddress());
         $q = $builder->where('ip', $ip_address)
             ->get(1);
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             $builder->insert([
                 'ip' => $ip_address,
                 'attempts' => 1,
@@ -325,7 +325,7 @@ class Staff
         $q = $this->staffModel->select($select)
             ->where($data)
             ->get(1);
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         return $q->getRow();
@@ -362,7 +362,7 @@ class Staff
                 $q = $departmentModel->groupEnd()
                     ->orderBy('dep_order','asc')
                     ->get();
-                if($q->resultID->num_rows == 0){
+                if($q->getNumRows() == 0){
                     $this->staff_departments = null;
                 }else{
                     $this->staff_departments = $q->getResult();

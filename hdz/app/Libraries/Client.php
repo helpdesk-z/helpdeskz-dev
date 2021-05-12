@@ -102,7 +102,7 @@ class Client
         $q = $this->usersModel->select($select)
             ->where($data)
             ->get(1);
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         return $q->getRow();
