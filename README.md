@@ -17,6 +17,7 @@ HelpDeskZ requires:
 - ext-iconv
 - ext-imap
 - ext-mbstring
+- mod_rewrite
 
 ## Installation steps
 
