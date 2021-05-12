@@ -204,7 +204,7 @@ class Api
     {
         $q = $this->model->where($where)
             ->get(1);
-        if($q->resultID->num_rows == 0){
+        if($q->getNumRows() == 0){
             return null;
         }
         return $q->getRow();
