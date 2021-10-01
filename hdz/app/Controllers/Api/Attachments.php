@@ -34,7 +34,7 @@ class Attachments extends ResourceController
 
         $ticket_id = $this->request->getGet('ticket_id');
         $message_id = $this->request->getGet('msg_id');
-        if(!is_numeric($ticket_id) && $ticket_id != round($ticket_id)){
+        if(is_numeric($ticket_id) && $ticket_id == round($ticket_id)){
             $this->model->where('ticket_id', $ticket_id);
         }
 
