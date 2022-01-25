@@ -13,6 +13,8 @@ return [
         'postedOn' => 'Posted on %date%',
         'searchResults' => 'Search results',
         'searchResultsFor' => 'Search results for %keyword%',
+        'stillindoubt' => 'Still in doubt?',
+        'textdoubt' => 'If you still can\'t find an answer to what you\'re looking for, or you have a specific question, open a new ticket and we\'d be happy to help!',
     ],
     'login' => [
         'menu' => 'Login',
