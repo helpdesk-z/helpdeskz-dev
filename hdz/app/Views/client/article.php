@@ -46,8 +46,8 @@ $this->section('page_content');
         <center><i class="fa fa-question-circle-o fa-5x" aria-hidden="true"></i></center>
       </div>
       <div class="col-7">
-        <h4 class="alert-heading"><?php echo lang('Still.in.doubt');?></h4>
-        <p><?php echo lang('Text.doubt');?></p>
+        <h4 class="alert-heading"><?php echo lang('Client.kb.stillindoubt');?></h4>
+        <p><?php echo lang('Client.kb.textdoubt');?></p>
       </div>
       <div class="col-3">
         <a href="<?php echo site_url(route_to('submit_ticket'));?>"><button type="button" class="btn btn-secondary float-right"><?php echo lang('Client.submitTicket.menu');?></button></a>
