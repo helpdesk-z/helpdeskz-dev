@@ -39,5 +39,20 @@ $this->section('page_content');
         </div>
     <?php endforeach;?>
 <?php endif;?>
+<br><br><br>
+<div class="alert alert-light border" role="alert">
+   <div class="row align-items-center">
+      <div class="col-2">
+        <center><i class="fa fa-question-circle-o fa-5x" aria-hidden="true"></i></center>
+      </div>
+      <div class="col-7">
+        <h4 class="alert-heading"><?php echo lang('Client.kb.stillindoubt');?></h4>
+        <p><?php echo lang('Client.kb.textdoubt');?></p>
+      </div>
+      <div class="col-3">
+        <a href="<?php echo site_url(route_to('submit_ticket'));?>"><button type="button" class="btn btn-secondary float-right"><?php echo lang('Client.submitTicket.menu');?></button></a>
+      </div>
+   </div>
+</div>
 <?php
 $this->endSection();
