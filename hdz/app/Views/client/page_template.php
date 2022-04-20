@@ -36,15 +36,15 @@ $this->section('content');
                     </div>
 
                     <!-- Popular articles -->
-                    <?php if($article_list = kb_popular()):?>
+                    <?php if($article_list == kb_popular()):?>
                         <div class="mb-5 d-none d-lg-block">
                             <h4 class="mb-4"><?php echo lang('Client.kb.mostPopular');?></h4>
-                            <?php foreach ($article_list as $item):?>
+                            <?php if (!empty($article_list)) : foreach ($article_list as $item):?>
                                 <div class="mb-3">
                                     <i class="fa fa-file-text-o kb_article_icon pr-3"></i>
                                     <a href="<?php echo site_url(route_to('article', $item->id, url_title($item->title)));?>"><?php echo $item->title;?></a>
                                 </div>
-                            <?php endforeach;?>
+                            <?php endforeach; endif;?>
                         </div>
                     <?php endif;?>
 
