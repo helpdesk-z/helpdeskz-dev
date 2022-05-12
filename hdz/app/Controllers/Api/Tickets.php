@@ -65,7 +65,9 @@ class Tickets extends ResourceController
         $validation->setRule('body','body','required',[
             'required' => lang('Api.error.bodyMissing')
         ]);
-        if($settings->config('ticket_attachment')){
+        
+        $hasFiles = $this->request->getPost('attachment') !== null;
+        if($settings->config('ticket_attachment') && $hasFiles){
             $max_size = $settings->config('ticket_file_size')*1024;
             $allowed_extensions = unserialize($settings->config('ticket_file_type'));
             $allowed_extensions = implode(',', $allowed_extensions);
@@ -77,7 +79,7 @@ class Tickets extends ResourceController
         if($validation->withRequest($this->request)->run() == false){
             return $api->output(implode(' ',array_values($validation->getErrors())), true);
         }
-        if ($settings->config('ticket_attachment')) {
+        if ($settings->config('ticket_attachment') && $hasFiles) {
             if ($files_uploaded = $attachments->ticketUpload()) {
                 $files = $files_uploaded;
             }
