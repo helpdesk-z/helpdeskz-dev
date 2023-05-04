@@ -202,9 +202,9 @@ $this->section('content');
                                    if(staff_data('admin') == 1 || staff_data('id') == $note->staff_id){
                                        ?>
                                        <div class="float-right">
-                                           <?php echo form_open('',['id' => 'noteForm'.$item->id],['do'=>'delete_note','note_id'=>$note->id]);?>
+                                           <?php echo form_open('',['id' => 'noteForm'.$note->id],['do'=>'delete_note','note_id'=>$note->id]);?>
                                            <button type="button" onclick="editNoteToggle('<?php echo $note->id;?>');" class="btn btn-link" title="Edit note" data-toggle="tooltip"><i class="fa fa-edit"></i></button>
-                                           <button type="button" onclick="deleteNote('noteForm<?php echo $item->id;?>');" class="btn btn-link" title="Delete note" data-toggle="tooltip"><i class="fa fa-trash-alt"></i></button>
+                                           <button type="button" onclick="deleteNote('noteForm<?php echo $note->id;?>');" class="btn btn-link" title="Delete note" data-toggle="tooltip"><i class="fa fa-trash-alt"></i></button>
                                            <?php echo form_close();?>
                                        </div>
                                        <?php
@@ -216,7 +216,7 @@ $this->section('content');
                                    <p><?php echo nl2br($note->message);?></p>
                                </div>
                                <div id="inputNote<?php echo $note->id;?>" style="display: none">
-                                   <?php echo form_open('',['id' => 'editNoteForm'.$item->id],['do'=>'edit_note','note_id'=>$note->id]);?>
+                                   <?php echo form_open('',['id' => 'editNoteForm'.$note->id],['do'=>'edit_note','note_id'=>$note->id]);?>
                                    <div class="form-group">
                                        <textarea class="form-control" name="new_note"><?php echo set_value('new_note', $note->message, false);?></textarea>
                                    </div>
